@@ -1,0 +1,56 @@
+package com.alpha.classpie.config.sms;
+
+import com.alpha.classpie.pojo.user.User;
+import com.alpha.classpie.service.inf.UserService;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.SpringSecurityMessageSource;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
+
+import javax.annotation.Resource;
+
+/**
+ * @author 杨能
+ * @create 2020/11/7
+ */
+@Component("smsCodeAuthenticationProvider")
+public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
+
+    @Resource(name = "defaultUserService")
+    UserService<User> userService;
+
+    @Resource(name = "defaultUserDetails")
+    UserDetailsService userDetailsService;
+
+    protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
+
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        Assert.isInstanceOf(SmsCodeAuthenticationToken.class, authentication,
+                () -> messages.getMessage("SmsCodeAuthenticationProvider.onlySupports",
+                        "Only SmsCodeAuthenticationToken is supported"));
+        SmsCodeAuthenticationToken smsCodeAuthenticationToken= (SmsCodeAuthenticationToken) authentication;
+        String telephone=smsCodeAuthenticationToken.getPrincipal();
+        Integer captcha=smsCodeAuthenticationToken.getCredentials();
+        User user = userService.loginBySMSVerificationCode(telephone, captcha);
+        if(user==null){
+            throw new InternalAuthenticationServiceException("验证码错误");
+        }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getTelephoneNumber());
+        SmsCodeAuthenticationToken smsSuccessCodeAuthenticationToken=new SmsCodeAuthenticationToken(telephone,captcha,userDetails.getAuthorities());
+        smsSuccessCodeAuthenticationToken.setDetails(userDetails);
+        return smsSuccessCodeAuthenticationToken;
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return SmsCodeAuthenticationToken.class.isAssignableFrom(authentication);
+    }
+
+}

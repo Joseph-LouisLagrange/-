@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alpha.classpie.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.alpha.classpie.pojo.course.Course">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="admin_teacher_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="class_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="term_year" javaType="java.sql.Date" jdbcType="DATE" />
+      <arg column="semester" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="is_archive" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="course_order" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, admin_teacher_id, code, name, class_name, term_year, semester, is_archive
+  </sql>
+  <select id="selectByExample" parameterType="com.alpha.classpie.example.CourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alpha.classpie.example.CourseExample">
+    delete from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alpha.classpie.pojo.course.Course" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+    insert into course (admin_teacher_id, code,
+      name, class_name, term_year,
+      semester, is_archive)
+    values (#{adminTeacherId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, #{termYear,jdbcType=DATE},
+      #{semester,jdbcType=INTEGER}, #{isArchive,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alpha.classpie.pojo.course.Course">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="adminTeacherId != null">
+        admin_teacher_id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="className != null">
+        class_name,
+      </if>
+      <if test="termYear != null">
+        term_year,
+      </if>
+      <if test="semester != null">
+        semester,
+      </if>
+      <if test="isArchive != null">
+        is_archive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminTeacherId != null">
+        #{adminTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="termYear != null">
+        #{termYear,jdbcType=DATE},
+      </if>
+      <if test="semester != null">
+        #{semester,jdbcType=INTEGER},
+      </if>
+      <if test="isArchive != null">
+        #{isArchive,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alpha.classpie.example.CourseExample" resultType="java.lang.Long">
+    select count(*) from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+    <select id="getCourseByCode" resultMap="BaseResultMap">
+      select <include refid="Base_Column_List"></include> from course where code=#{code}
+    </select>
+  <select id="getCourseIdByCode" resultType="java.lang.Integer">
+    select id from course where code=#{code}
+  </select>
+  <select id="getCourses" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+  </select>
+
+  <update id="updateByExampleSelective" parameterType="map">
+    update course
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminTeacherId != null">
+        admin_teacher_id = #{record.adminTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null">
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.className != null">
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
+      <if test="record.termYear != null">
+        term_year = #{record.termYear,jdbcType=DATE},
+      </if>
+      <if test="record.semester != null">
+        semester = #{record.semester,jdbcType=INTEGER},
+      </if>
+      <if test="record.isArchive != null">
+        is_archive = #{record.isArchive,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update course
+    set id = #{record.id,jdbcType=INTEGER},
+      admin_teacher_id = #{record.adminTeacherId,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      class_name = #{record.className,jdbcType=VARCHAR},
+      term_year = #{record.termYear,jdbcType=DATE},
+      semester = #{record.semester,jdbcType=INTEGER},
+      is_archive = #{record.isArchive,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alpha.classpie.pojo.course.Course">
+    update course
+    <set>
+      <if test="adminTeacherId != null">
+        admin_teacher_id = #{adminTeacherId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null">
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="termYear != null">
+        term_year = #{termYear,jdbcType=DATE},
+      </if>
+      <if test="semester != null">
+        semester = #{semester,jdbcType=INTEGER},
+      </if>
+      <if test="isArchive != null">
+        is_archive = #{isArchive,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alpha.classpie.pojo.course.Course">
+    update course
+    set admin_teacher_id = #{adminTeacherId,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
+      term_year = #{termYear,jdbcType=DATE},
+      semester = #{semester,jdbcType=INTEGER},
+      is_archive = #{isArchive,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateArchive">
+    update course set is_archive=#{archiveState,jdbcType=BIT} where id=#{id,jdbcType=INTEGER}
+  </update>
+</mapper>

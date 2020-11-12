@@ -1,0 +1,28 @@
+mail:
+  fromMail:
+    addr: 2580012389@qq.com
+  captchaMail:
+    subject: 【网络教学系统-Alpha】
+    template: 验证码 {0} (${captcha.mail.expireTimeout}分钟内有效)。如非本人操作，请忽略本短信。
+captcha:
+  SMS:
+    expireTimeout: 10
+    timeUnit: MINUTES
+  web:
+    expireTimeout: 15
+    timeUnit: MINUTES
+  mail:
+    expireTimeout: 10
+    timeUnit: MINUTES
+SMS:
+  module: 【网络教学系统-Alpha】验证码 {0} (${captcha.SMS.expireTimeout}分钟内有效)。如非本人操作，请忽略本短信。
+  request:
+    sysMethod: POST
+    sysDomain: dysmsapi.aliyuncs.com
+    sysVersion: 2017-05-25
+    sysAction: SendSms
+    queryParameter:
+      regionId: cn-hangzhou
+      signName: 网络教学系统Unit
+      templateCode: SMS_190784667
+

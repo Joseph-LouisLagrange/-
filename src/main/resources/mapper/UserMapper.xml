@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alpha.classpie.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.alpha.classpie.pojo.user.User">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer"/>
+      <arg column="name" javaType="java.lang.String"/>
+      <arg column="school" javaType="java.lang.String"/>
+      <arg column="account_number" javaType="java.lang.String"/>
+      <arg column="email_number" javaType="java.lang.String"/>
+      <arg column="telephone_number" javaType="java.lang.String"/>
+      <arg column="password" javaType="java.lang.String"/>
+      <arg column="id" select="com.alpha.classpie.dao.UserRoleMapper.getRolesByUserId" javaType="java.util.List"/>
+    </constructor>
+<!--    <result property="id" column="id"/>-->
+<!--    <result column="account_number" property="accountNumber"/>-->
+<!--    <result column="email_number" property="emailNumber"/>-->
+<!--    <result column="telephone_number" property="telephoneNumber"/>-->
+<!--    <collection property="roles" column="id" select=""/>-->
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, school, account_number, email_number, telephone_number, password
+  </sql>
+  <select id="selectByExample" parameterType="com.alpha.classpie.example.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alpha.classpie.example.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alpha.classpie.pojo.user.User" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+    insert into user (id, name, school,
+      account_number, email_number, telephone_number,
+      password)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
+      #{accountNumber,jdbcType=CHAR}, #{emailNumber,jdbcType=VARCHAR}, #{telephoneNumber,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alpha.classpie.pojo.user.User" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="accountNumber != null">
+        account_number,
+      </if>
+      <if test="emailNumber != null">
+        email_number,
+      </if>
+      <if test="telephoneNumber != null">
+        telephone_number,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null">
+        #{accountNumber,jdbcType=CHAR},
+      </if>
+      <if test="emailNumber != null">
+        #{emailNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="telephoneNumber != null">
+        #{telephoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alpha.classpie.example.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+    <select id="getUserId" resultType="java.lang.Integer" parameterType="com.alpha.classpie.example.UserExample">
+        select id from user <if test="_parameter != null"><include refid="Example_Where_Clause" /></if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.school != null">
+        school = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountNumber != null">
+        account_number = #{record.accountNumber,jdbcType=CHAR},
+      </if>
+      <if test="record.emailNumber != null">
+        email_number = #{record.emailNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephoneNumber != null">
+        telephone_number = #{record.telephoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      school = #{record.school,jdbcType=VARCHAR},
+      account_number = #{record.accountNumber,jdbcType=CHAR},
+      email_number = #{record.emailNumber,jdbcType=VARCHAR},
+      telephone_number = #{record.telephoneNumber,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alpha.classpie.pojo.user.User">
+    update user
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNumber != null">
+        account_number = #{accountNumber,jdbcType=CHAR},
+      </if>
+      <if test="emailNumber != null">
+        email_number = #{emailNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="telephoneNumber != null">
+        telephone_number = #{telephoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alpha.classpie.pojo.user.User">
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      account_number = #{accountNumber,jdbcType=CHAR},
+      email_number = #{emailNumber,jdbcType=VARCHAR},
+      telephone_number = #{telephoneNumber,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

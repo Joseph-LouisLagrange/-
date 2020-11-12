@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scanPeriod="60 seconds" scan="true">
+    <!--声明变量-->
+    <property name="applicationName" value="ALPHA"/>
+    <property name="LOG_HOME" value="./logs"/>
+    <property name="web访问记录" value="web访问记录.log"/>
+    <property name="service操作" value="service操作.log"/>
+    <timestamp key="bySeconds" datePattern="yyyy-MM-dd HH:mm:ss"/>
+    <contextName>${applicationName}</contextName>
+    <!--控制台输出-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{YYYY年MM月dd日 HH:mm:ss} [%-5level] [%thread] [ %logger ] - %red(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="web访问记录" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_HOME}/${web访问记录}</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder class ="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{YYYY年MM月dd日 HH:mm:ss} [%-5level] [%thread] [ %logger ] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="service操作" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_HOME}/${service操作}</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{YYYY年MM月dd日 HH:mm:ss} [%-5level] [%thread] [ %logger ] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="Web访问" level="DEBUG" addtivity="false">
+        <appender-ref ref="web访问记录"/>
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="service操作" level="DEBUG" addtivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="service操作"/>
+    </logger>
+</configuration>
+

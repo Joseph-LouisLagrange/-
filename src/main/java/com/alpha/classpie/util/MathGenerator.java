@@ -1,0 +1,103 @@
+package com.alpha.classpie.util;
+
+import cn.hutool.captcha.generator.CodeGenerator;
+
+import cn.hutool.core.math.Calculator;
+import cn.hutool.core.util.CharUtil;
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
+import org.springframework.stereotype.Component;
+
+
+
+/**
+ * @author 杨能
+ * @create 2020/11/1
+ */
+@Component
+public class MathGenerator implements CodeGenerator , MathGeneratorAdapter {
+
+    char[] chMathOperators={'加','减','乘'};
+
+    char[] operators={'+','-','*'};
+
+    /** 参与计算数字最大长度 */
+    private final int numberLength;
+
+    /**
+     * 构造
+     */
+    public MathGenerator() {
+        this(1);
+    }
+
+    /**
+     * 构造
+     *
+     * @param numberLength 参与计算最大数字位数
+     */
+    public MathGenerator(int numberLength) {
+        this.numberLength = numberLength;
+    }
+
+    @Override
+    public String generate() {
+        final int limit = getLimit();
+        String number1 = Integer.toString(RandomUtil.randomInt(limit));
+        String number2 = Integer.toString(RandomUtil.randomInt(limit));
+        number1 = StrUtil.padAfter(number1, this.numberLength, CharUtil.SPACE);
+        number2 = StrUtil.padAfter(number2, this.numberLength, CharUtil.SPACE);
+
+        return StrUtil.builder()//
+                .append(number1)//
+                .append(RandomUtil.randomChar(String.valueOf(chMathOperators)))//
+                .append(number2)//
+                .append('=').toString();
+    }
+
+    @Override
+    public boolean verify(String code, String userInputCode) {
+        for(int i=0;i<operators.length;i++){
+            code=code.replace(chMathOperators[i],operators[i]);
+
+        }
+        int result;
+        try {
+            result = Integer.parseInt(userInputCode);
+        } catch (NumberFormatException e) {
+            // 用户输入非数字
+            return false;
+        }
+        final int calculateResult = (int) Calculator.conversion(code);
+        return result == calculateResult;
+    }
+
+
+    /**
+     * 获取验证码长度
+     *
+     * @return 验证码长度
+     */
+    public int getLength() {
+        return this.numberLength * 2 + 2;
+    }
+
+    /**
+     * 根据长度获取参与计算数字最大值
+     *
+     * @return 最大值
+     */
+    private int getLimit() {
+        return Integer.parseInt("1" + StrUtil.repeat('0', this.numberLength));
+    }
+
+    @Override
+    public char toMathChar(char c) {
+        return 0;
+    }
+
+    @Override
+    public char toChineseMathChar(char c) {
+        return 0;
+    }
+}
