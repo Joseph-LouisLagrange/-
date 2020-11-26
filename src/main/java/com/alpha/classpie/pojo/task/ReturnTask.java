@@ -1,10 +1,20 @@
 package com.alpha.classpie.pojo.task;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.Date;
 
+/**
+ * 打回作业
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class ReturnTask extends ReturnTaskKey {
     private Integer count;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:dd",timezone = "GMT+8")
     private Date lastTime;
 
     public ReturnTask(Integer userId, Integer taskId, Integer count, Date lastTime) {

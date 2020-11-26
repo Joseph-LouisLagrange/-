@@ -4,8 +4,13 @@ import com.alpha.classpie.pojo.task.ReturnTask;
 import com.alpha.classpie.example.ReturnTaskExample;
 import com.alpha.classpie.pojo.task.ReturnTaskKey;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
 public interface ReturnTaskMapper {
     long countByExample(ReturnTaskExample example);
 
@@ -28,4 +33,8 @@ public interface ReturnTaskMapper {
     int updateByPrimaryKeySelective(ReturnTask record);
 
     int updateByPrimaryKey(ReturnTask record);
+
+    int selfIncreasingReturnCount(ReturnTaskKey key);
+
+    boolean isExist(ReturnTaskKey key);
 }

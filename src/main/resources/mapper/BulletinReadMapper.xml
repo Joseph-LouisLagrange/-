@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.alpha.classpie.dao.BulletinReadMapper">
-  <resultMap id="BaseResultMap" type="com.alpha.classpie.pojo.bulletin.BulletinReadKey">
+  <resultMap id="BaseResultMap" type="com.alpha.classpie.pojo.bulletin.BulletinRead">
     <constructor>
       <idArg column="bulletin_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <idArg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -82,7 +82,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.alpha.classpie.pojo.bulletin.BulletinReadKey">
+  <delete id="deleteByPrimaryKey" parameterType="com.alpha.classpie.pojo.bulletin.BulletinRead">
     delete from bulletin_read
     where bulletin_id = #{bulletinId,jdbcType=INTEGER}
       and user_id = #{userId,jdbcType=INTEGER}
@@ -93,11 +93,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.alpha.classpie.pojo.bulletin.BulletinReadKey">
+  <insert id="insert" parameterType="com.alpha.classpie.pojo.bulletin.BulletinRead">
     insert into bulletin_read (bulletin_id, user_id)
     values (#{bulletinId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.alpha.classpie.pojo.bulletin.BulletinReadKey">
+  <insert id="insertSelective" parameterType="com.alpha.classpie.pojo.bulletin.BulletinRead">
     insert into bulletin_read
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="bulletinId != null">
@@ -144,4 +144,5 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
 </mapper>

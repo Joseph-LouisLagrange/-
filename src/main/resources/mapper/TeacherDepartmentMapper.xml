@@ -122,8 +122,8 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <select id="getDepartmentsByUserId" resultType="com.alpha.classpie.pojo.other.Department">
-    select <include refid="Base_Column_List"></include> from teacher_department where user_id=#{userId}
+  <select id="getDepartmentsByUserId" resultMap="com.alpha.classpie.dao.DepartmentMapper.BaseResultMap">
+    select <include refid="com.alpha.classpie.dao.DepartmentMapper.Base_Column_List"></include> from teacher_department join department on department_id=id where user_id=#{userId}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update teacher_department

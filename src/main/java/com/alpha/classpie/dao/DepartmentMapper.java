@@ -9,7 +9,9 @@ import java.util.Set;
 import com.alpha.classpie.pojo.other.EducationLevel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @Mapper
 public interface DepartmentMapper {
     long countByExample(DepartmentExample example);

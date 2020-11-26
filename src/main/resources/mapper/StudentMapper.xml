@@ -2,8 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.alpha.classpie.dao.StudentMapper">
   <resultMap id="BaseResultMap" type="com.alpha.classpie.pojo.user.Student">
-      <result column="user_id" property="id"/>
-      <result column="student_id" property="studentId"/>
+      <constructor>
+        <idArg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <arg column="student_id" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <arg column="user_id" javaType="com.alpha.classpie.pojo.user.User" select="com.alpha.classpie.dao.UserMapper.selectByPrimaryKey"/>
+      </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

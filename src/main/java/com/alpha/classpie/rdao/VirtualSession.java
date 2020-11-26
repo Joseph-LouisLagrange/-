@@ -16,23 +16,27 @@ import java.util.concurrent.TimeUnit;
 @Repository
 public class VirtualSession {
 
+    @Autowired
+    RedisDaoUtil redisDaoUtil;
+
     private String aggregation(String sessionId,String name){
-        return sessionId+"-"+name;
+        return sessionId+":"+name;
     }
 
     public boolean isExist(String sessionId,String name){
-        return RedisDaoUtil.hasKey(aggregation(sessionId, name));
+        return redisDaoUtil.hasKey(aggregation(sessionId, name));
     }
 
-    public<T> T  getAttribute(String sessionId,String name,Class<T> tClass){
-        return RedisDaoUtil.getObj(aggregation(sessionId, name),tClass);
+    public <T> T getAttribute(String sessionId, String name, Class<T> tClass){
+        return redisDaoUtil.getObj(aggregation(sessionId, name),tClass);
     }
+
 
     public void setAttributeExpire(String sessionId, String name,Object attribute, long expireTimeout, TimeUnit timeUnit){
-        RedisDaoUtil.setex(aggregation(sessionId, name),attribute,expireTimeout,timeUnit);
+        redisDaoUtil.setex(aggregation(sessionId, name),attribute,expireTimeout,timeUnit);
     }
 
     public void setAttributeForever(String sessionId, String name,Object attribute){
-        RedisDaoUtil.setex(aggregation(sessionId, name),attribute);
+        redisDaoUtil.setex(aggregation(sessionId, name),attribute);
     }
 }

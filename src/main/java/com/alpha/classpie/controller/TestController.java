@@ -13,22 +13,6 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-    @PreAuthorize("permitAll()")
-    @RequestMapping("/getSessionId")
-    public String getSessionId(HttpSession session){
-        return session.getId();
-    }
-    @RequestMapping("/setSessionUsername")
-    public String setSessionUsername(@RequestParam(name = "username")String username, HttpSession httpSession){
-        httpSession.setAttribute("username",username);
-        return (String) httpSession.getAttribute("username");
-    }
-
-    @RequestMapping("/getSessionUsername")
-    public String getSessionUsername(HttpSession httpSession){
-        return (String) httpSession.getAttribute("username");
-    }
-
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping("/testAuthenticated")
     public String testAuthenticated(){

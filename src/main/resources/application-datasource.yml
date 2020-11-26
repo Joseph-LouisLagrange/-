@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     username: root
-    url: jdbc:mysql://localhost:3306/classroom_pie?uesSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/classroom_pie?uesSSL=false&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     password: 991103goodluck
     druid:
       filters: stat,wall,slf4j

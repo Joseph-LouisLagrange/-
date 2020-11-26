@@ -1,18 +1,9 @@
 package com.alpha.classpie.config.security;
 
-import com.alpha.classpie.pojo.user.User;
 import com.alpha.classpie.service.inf.UserService;
-import org.apache.catalina.security.SecurityUtil;
-import org.omg.CosNaming.NamingContextPackage.CannotProceed;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -21,30 +12,18 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.FilterInvocation;
-import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.*;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
-import javax.servlet.Filter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author 杨能
@@ -61,11 +40,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource(name = "smsCodeAuthenticationSecurityConfig")
     SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> smsCodeAuthenticationSecurityConfig;
 
-    @Resource(name = "defaultUserDetails")
-    UserDetailsService userService;
+    @Resource(name = "defaultUserDetailsService")
+    UserDetailsService userDetailsService;
 
     @Resource(name = "defaultUserService")
-    UserService<User> simpleUserService;
+    UserService userService;
 
 
     @Override
@@ -98,7 +77,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     JWTAuthorizationFilter jwtAuthorizationFilter() throws Exception {
         JWTAuthorizationFilter jwtAuthorizationFilter = new JWTAuthorizationFilter(authenticationManager());
-        jwtAuthorizationFilter.setUserService(simpleUserService);
+        jwtAuthorizationFilter.setUserService(userService);
         return jwtAuthorizationFilter;
     }
 
@@ -128,13 +107,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.userService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(this.userDetailsService).passwordEncoder(passwordEncoder);
     }
 
 
     public CorsConfigurationSource corsConfigurationSource(){
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addExposedHeader("token");
+        corsConfiguration.addExposedHeader("Authorization");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
+        source.registerCorsConfiguration("/**",corsConfiguration);
         return source;
     }
 }

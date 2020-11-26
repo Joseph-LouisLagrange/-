@@ -1,7 +1,12 @@
 package com.alpha.classpie.pojo.user;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 
+@Data
+@EqualsAndHashCode
 public class Role implements Serializable {
     public static final Role STUDENT=new Role(1,"学生");
     public static final Role TEACHER=new Role(2,"老师");

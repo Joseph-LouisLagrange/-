@@ -1,12 +1,18 @@
 package com.alpha.classpie.pojo.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +22,8 @@ import java.util.stream.Collectors;
 
 @Setter
 @Getter
+@ToString
+@Valid
 public class User extends org.springframework.security.core.userdetails.User {
     protected Integer id;
 
@@ -23,8 +31,10 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     protected String school;
 
+    //@Pattern(regexp = "^[0-9a-zA-Z]{9}$")
     protected String accountNumber;
 
+    //@Email
     protected String emailNumber;
 
     protected String telephoneNumber;
@@ -108,5 +118,9 @@ public class User extends org.springframework.security.core.userdetails.User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

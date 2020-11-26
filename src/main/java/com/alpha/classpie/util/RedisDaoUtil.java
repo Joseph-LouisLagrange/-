@@ -2,28 +2,34 @@ package com.alpha.classpie.util;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundHashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
+import javax.annotation.Resources;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class RedisDaoUtil {
-    final static StringRedisTemplate stringRedisTemplate = SpringUtil.getBean("stringRedisTemplate",StringRedisTemplate.class);
-    final static RedisTemplate<String, Object> redisTemplate = SpringUtil.getBean("redisTemplate",RedisTemplate.class);
-
+        @Autowired
+        StringRedisTemplate stringRedisTemplate ;
+        @Resource(name = "defaultRedisTemplate")
+         RedisTemplate<String,Object> redisTemplate;
         /**
          * 删除缓存<br>
          * 根据key精确匹配删除
          * @param key
          */
         @SuppressWarnings("unchecked")
-        public static void del(String... key){
+        public  void del(String... key){
         if(key!=null && key.length > 0){
         if(key.length == 1){
         redisTemplate.delete(key[0]);
@@ -32,7 +38,7 @@ public class RedisDaoUtil {
         }
         }
         }
-        public static void setToday(String key, Object value) {
+        public  void setToday(String key, Object value) {
         Calendar now = Calendar.getInstance();
         now.setTime(new Date());
         Calendar cal = Calendar.getInstance();
@@ -49,18 +55,19 @@ public class RedisDaoUtil {
          * （该操作会执行模糊查询，请尽量不要使用，以免影响性能或误删）
          * @param pattern
          */
-        public static void batchDel(String... pattern){
+        public  void batchDel(String... pattern){
         for (String kp : pattern) {
         redisTemplate.delete(redisTemplate.keys(kp + "*"));
         }
         }
+
 
         /**
          * 取得缓存（int型）
          * @param key
          * @return
          */
-        public static Integer getInt(String key){
+        public  Integer getInt(String key){
         String value = stringRedisTemplate.boundValueOps(key).get();
         if(StringUtils.isNotBlank(value)){
         return Integer.valueOf(value);
@@ -73,7 +80,7 @@ public class RedisDaoUtil {
          * @param key
          * @return
          */
-        public static String getStr(String key){
+        public  String getStr(String key){
         return stringRedisTemplate.boundValueOps(key).get();
         }
 
@@ -83,7 +90,7 @@ public class RedisDaoUtil {
          * @param key
          * @return
          */
-        public static String getStr(String key, boolean retain){
+        public  String getStr(String key, boolean retain){
         String value = stringRedisTemplate.boundValueOps(key).get();
         if(!retain){
         redisTemplate.delete(key);
@@ -97,11 +104,31 @@ public class RedisDaoUtil {
          * @param key
          * @return
          */
-        public static Object getObj(String key){
+        public  Object getObj(String key){
         return redisTemplate.boundValueOps(key).get();
         }
-        public static <T>T getObj(String key, Class<T> clazz){
-        return (T)redisTemplate.boundValueOps(key).get();
+
+        public  <T> T getObj(String key, Class<T> clazz){
+                String value=stringRedisTemplate.opsForValue().get(key);
+                Object result=null;
+                if(clazz==String.class){
+                        result=value;
+                }else if(clazz==Integer.class){
+                        result=Integer.parseInt(value);
+                }else if(clazz==Double.class){
+                        result=Double.parseDouble(value);
+                }else if(clazz==Float.class){
+                        result=Float.parseFloat(value);
+                }else if(clazz==Short.class){
+                        result=Short.parseShort(value);
+                }else if(clazz==Long.class){
+                        result=Long.parseLong(value);
+                }else if(clazz==Boolean.class){
+                        result=Boolean.parseBoolean(value);
+                }else{
+                        return (T)redisTemplate.boundValueOps(key).get();
+                }
+                return (T)result;
         }
 
         /**
@@ -111,7 +138,7 @@ public class RedisDaoUtil {
          * @param retain    是否保留
          * @return
          */
-        public static Object getObj(String key, boolean retain){
+        public  Object getObj(String key, boolean retain){
         Object obj = redisTemplate.boundValueOps(key).get();
         if(!retain){
         redisTemplate.delete(key);
@@ -127,11 +154,11 @@ public class RedisDaoUtil {
          * @return
          */
         @SuppressWarnings("unchecked")
-        public static <T> T get(String key, Class<T> clazz) {
+        public  <T> T get(String key, Class<T> clazz) {
         return (T)redisTemplate.boundValueOps(key).get();
         }
 
-        public static void setex(String key,Object value){
+        public void setex(String key,Object value){
             if(value.getClass().equals(String.class)){
                 stringRedisTemplate.opsForValue().set(key, value.toString());
             }else if(value.getClass().equals(Integer.class)){
@@ -156,7 +183,7 @@ public class RedisDaoUtil {
          * @param key
          * @param value
          */
-        public static void setex(String key,Object value,long timeout,TimeUnit timeUnit){
+        public  void setex(String key,Object value,long timeout,TimeUnit timeUnit){
         setex(key, value);
         if(timeout > 0){
         redisTemplate.expire(key, timeout,timeUnit);
@@ -173,7 +200,7 @@ public class RedisDaoUtil {
          * @param by
          * @return
          */
-        public static double decr(String key, double by){
+        public  double decr(String key, double by){
         return redisTemplate.opsForValue().increment(key, -by);
         }
 
@@ -183,7 +210,7 @@ public class RedisDaoUtil {
          * @param by
          * @return
          */
-        public static double incr(String key, double by){
+        public  double incr(String key, double by){
         return redisTemplate.opsForValue().increment(key, by);
         }
 
@@ -192,7 +219,7 @@ public class RedisDaoUtil {
          * @param key
          * @return
          */
-        public static double getDouble(String key) {
+        public  double getDouble(String key) {
         String value = stringRedisTemplate.boundValueOps(key).get();
         if(StringUtils.isNotBlank(value)){
         return Double.valueOf(value);
@@ -206,7 +233,7 @@ public class RedisDaoUtil {
          * @param value
          * @param time 失效时间(秒)
          */
-        public static void setDouble(String key, double value, int time) {
+        public  void setDouble(String key, double value, int time) {
         stringRedisTemplate.opsForValue().set(key, String.valueOf(value));
         if(time > 0){
         stringRedisTemplate.expire(key, time, TimeUnit.SECONDS);
@@ -219,7 +246,7 @@ public class RedisDaoUtil {
          * @param value
          * @param time 失效时间(秒)
          */
-        public static void setInt(String key, int value, int time) {
+        public  void setInt(String key, int value, int time) {
         stringRedisTemplate.opsForValue().set(key, String.valueOf(value));
         if(time > 0){
         stringRedisTemplate.expire(key, time, TimeUnit.SECONDS);
@@ -232,7 +259,7 @@ public class RedisDaoUtil {
          * @param map
          */
         @SuppressWarnings("unchecked")
-        public static <T> void setMap(String key, Map map){
+        public  <T> void setMap(String key, Map map){
         redisTemplate.opsForHash().putAll(key, map);
         }
 
@@ -243,7 +270,7 @@ public class RedisDaoUtil {
          * @param key
          * @param map
          */
-        public static <T> void addMap(String key, Map<String, T> map){
+        public  <T> void addMap(String key, Map<String, T> map){
         redisTemplate.opsForHash().putAll(key, map);
         }
 
@@ -253,7 +280,7 @@ public class RedisDaoUtil {
          * @param field map对应的key
          * @param value     值
          */
-        public static void addMap(String key, String field, String value){
+        public  void addMap(String key, String field, String value){
         redisTemplate.opsForHash().put(key, field, value);
         }
 
@@ -263,7 +290,7 @@ public class RedisDaoUtil {
          * @param field map对应的key
          * @param obj   对象
          */
-        public static <T> void addMap(String key, String field, T obj){
+        public  <T> void addMap(String key, String field, T obj){
         redisTemplate.opsForHash().put(key, field, obj);
         }
 
@@ -273,7 +300,7 @@ public class RedisDaoUtil {
          * @param clazz
          * @return
          */
-        public static <T> Map<String, T> mget(String key, Class<T> clazz){
+        public  <T> Map<String, T> mget(String key, Class<T> clazz){
         BoundHashOperations<String, String, T> boundHashOperations = redisTemplate.boundHashOps(key);
         return boundHashOperations.entries();
         }
@@ -288,7 +315,7 @@ public class RedisDaoUtil {
          * @return
          */
         @SuppressWarnings("unchecked")
-        public static <T> T getMapField(String key, String field, Class<T> clazz){
+        public  <T> T getMapField(String key, String field, Class<T> clazz){
         return (T)redisTemplate.boundHashOps(key).get(field);
         }
 
@@ -312,7 +339,7 @@ public class RedisDaoUtil {
          * @param key 缓存KEY
          * @param time 失效时间(秒)
          */
-        public static void expire(String key, int time) {
+        public  void expire(String key, int time) {
         if(time > 0){
         redisTemplate.expire(key, time, TimeUnit.SECONDS);
         }
@@ -323,7 +350,7 @@ public class RedisDaoUtil {
          * @param key
          * @param value
          */
-        public static void sadd(String key, String... value) {
+        public  void sadd(String key, String... value) {
         redisTemplate.boundSetOps(key).add(value);
         }
 
@@ -332,7 +359,7 @@ public class RedisDaoUtil {
          * @param key
          * @param value
          */
-        public static void srem(String key, String... value) {
+        public  void srem(String key, String... value) {
         redisTemplate.boundSetOps(key).remove(value);
         }
 
@@ -341,11 +368,11 @@ public class RedisDaoUtil {
          * @param setKey
          * @param key
          */
-        public static Boolean sexist(String setKey, String  key) {
+        public  Boolean sexist(String setKey, String  key) {
         return redisTemplate.boundSetOps(setKey).isMember(key);
         }
 
-        public static Boolean hasKey(String key){
+        public  Boolean hasKey(String key){
             return redisTemplate.hasKey(key);
         }
 
@@ -354,7 +381,7 @@ public class RedisDaoUtil {
          * @param oldkey
          * @param newkey
          */
-        public static void srename(String oldkey, String newkey){
+        public  void srename(String oldkey, String newkey){
         redisTemplate.boundSetOps(oldkey).rename(newkey);
         }
 
@@ -364,7 +391,7 @@ public class RedisDaoUtil {
          * @param pattern
          * @return
          */
-        public static Set<String> keys(String pattern){
+        public  Set<String> keys(String pattern){
         return redisTemplate.keys(pattern);
         }
         }

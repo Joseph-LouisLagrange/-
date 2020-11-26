@@ -5,6 +5,7 @@ import com.alpha.classpie.example.UserCourseExample;
 import com.alpha.classpie.pojo.UserCourseKey;
 import java.util.List;
 
+import com.alpha.classpie.pojo.course.Course;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -34,5 +35,9 @@ public interface UserCourseMapper {
 
     int updateByPrimaryKey(UserCourse record);
 
+    int updateArchive(@Param("archiveState") boolean archiveState,@Param("userId") int userId,@Param("courseId") int courseId);
+
     Integer getMaxOrderByUserId(int userId);
+
+    List<Course> getCoursesByUserId(int userId);
 }

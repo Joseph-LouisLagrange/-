@@ -1,34 +1,22 @@
 package com.alpha.classpie;
 
 
-import cn.hutool.core.util.RandomUtil;
 import com.alpha.classpie.dao.*;
-import com.alpha.classpie.dto.exception.ExceptionDto;
-import com.alpha.classpie.example.*;
-import com.alpha.classpie.pojo.user.TeacherCustomMajor;
-import com.alpha.classpie.rdao.EmailCaptchaDao;
-import com.alpha.classpie.service.impl.UserDetailsImpl;
-import com.alpha.classpie.service.inf.CaptchaService;
-import com.alpha.classpie.service.inf.MailService;
-import com.alpha.classpie.util.AlibabaSMSUtil;
+import com.alpha.classpie.example.TaskNoticeExample;
+import com.alpha.classpie.service.inf.safe.CaptchaService;
+import com.alpha.classpie.service.inf.notice.MailService;
 
 
-import com.google.gson.Gson;
-import org.apache.catalina.connector.Request;
-import org.junit.jupiter.api.Assertions;
+import com.alpha.classpie.util.RedisDaoUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootTest
 class ClasspieApplicationTests {
@@ -46,12 +34,19 @@ class ClasspieApplicationTests {
     @Autowired
     MailService mailService;
 
-    @Resource(name = "defaultUserDetails")
+    @Resource(name = "defaultUserDetailsService")
     UserDetailsService userDetailsService;
 
+
+    @Autowired
+    RedisDaoUtil redisDaoUtil;
+
+    @Autowired
+    TaskNoticeMapper taskNoticeMapper;
+
     @Test
-    public void test(){
-        userDetailsService.loadUserByUsername("158gyxdf");
+    public void test() throws Exception {
+        taskNoticeMapper.selectByExample(new TaskNoticeExample()).forEach(System.out::println);
     }
 
 }

@@ -1,9 +1,8 @@
 package com.alpha.classpie.config.security;
 
 
-import com.alpha.classpie.pojo.user.Role;
-import com.alpha.classpie.service.inf.PermissionService;
-import com.alpha.classpie.service.inf.RoleService;
+import com.alpha.classpie.service.inf.safe.PermissionService;
+import com.alpha.classpie.service.inf.safe.RoleService;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Component("globalPermissionEvaluator")
 public class GlobalPermissionEvaluator implements PermissionEvaluator {

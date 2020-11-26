@@ -6,7 +6,18 @@
       <idArg column="notice_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="task_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="type" javaType="java.lang.String" jdbcType="CHAR" />
+      <arg column="notice_id" select="com.alpha.classpie.dao.NoticeMapper.selectByPrimaryKey" javaType="com.alpha.classpie.pojo.Notice"/>
     </constructor>
+  </resultMap>
+  <resultMap id="PowerResultMap" type="com.alpha.classpie.pojo.task.TaskNotice" autoMapping="true">
+      <id property="noticeId" column="notice_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <result property="taskId" column="task_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+      <result property="type" column="type" javaType="java.lang.String" jdbcType="CHAR"/>
+      <result property="id" column="id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+     <result property="userId" column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+     <result property="title" column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <result property="isRead" column="is_read" javaType="java.lang.Boolean" jdbcType="BIT" />
+     <result property="content" column="content" javaType="java.lang.String" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -135,6 +146,14 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="getNoReadTaskNoticeByUserId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from task_notice as tn left join notice as n on
+         tn.notice_id=n.id where user_id=#{userId} and is_read=0
+  </select>
+  <select id="getAllTaskNoticeByUserId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"></include> from task_notice as tn left join notice as n on
+    tn.notice_id=n.id where user_id=#{userId}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update task_notice

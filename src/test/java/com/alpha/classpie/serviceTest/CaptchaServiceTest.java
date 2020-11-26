@@ -1,11 +1,9 @@
 package com.alpha.classpie.serviceTest;
 
-import com.alpha.classpie.service.inf.CaptchaService;
+import com.alpha.classpie.service.inf.safe.CaptchaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mail.MailSender;
 
 import javax.annotation.Resource;
 

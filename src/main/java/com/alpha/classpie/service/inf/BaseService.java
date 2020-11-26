@@ -17,7 +17,7 @@ public interface BaseService<T,E> {
     default PageInfo<T> page(PageParam pageParam,E example){
         return PageHelper.startPage(pageParam.getPageNumber(),pageParam.getPageSize())
                 .doSelectPageInfo(()->{
-                    list(pageParam,example);});
+                    list(example);});
     }
-    List<T> list(PageParam pageParam, E example);
+    List<T> list(E example);
 }

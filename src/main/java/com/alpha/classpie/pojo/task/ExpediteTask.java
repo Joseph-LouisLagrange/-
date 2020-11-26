@@ -1,5 +1,8 @@
 package com.alpha.classpie.pojo.task;
 
+/**
+ * 催促作业
+ */
 public class ExpediteTask extends ExpediteTaskKey {
     private Integer count;
 

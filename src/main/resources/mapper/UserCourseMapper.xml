@@ -5,7 +5,7 @@
     <constructor>
       <idArg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <idArg column="course_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="role_id" jdbcType="INTEGER" select="com.alpha.classpie.dao.RoleMapper.selectByPrimaryKey"/>
+      <arg column="role_id" jdbcType="INTEGER" select="com.alpha.classpie.dao.RoleMapper.selectByPrimaryKey" javaType="com.alpha.classpie.pojo.user.Role" />
       <arg column="is_archive" javaType="java.lang.Boolean" jdbcType="BIT" />
       <arg column="course_order" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="business_card" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -109,8 +109,7 @@
       is_archive, course_order, business_card
       )
     values (#{userId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER},
-      #{isArchive,jdbcType=BIT}, #{courseOrder,jdbcType=INTEGER}, #{businessCard,jdbcType=VARCHAR}
-      )
+      #{isArchive,jdbcType=BIT}, #{courseOrder,jdbcType=INTEGER}, #{businessCard,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.alpha.classpie.pojo.UserCourse">
     insert into user_course
@@ -164,6 +163,9 @@
   <select id="getMaxOrderByUserId" resultType="java.lang.Integer">
     select MAX(course_order) from user_course where user_id=#{userId}
   </select>
+  <select id="getCoursesByUserId" resultMap="com.alpha.classpie.dao.CourseMapper.BaseResultMap">
+    select course.* from user_course as uc join course on course.id=uc.course_id where user_id=#{userId}
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update user_course
     <set>
@@ -197,7 +199,7 @@
       role_id = #{record.roleId,jdbcType=INTEGER},
       is_archive = #{record.isArchive,jdbcType=BIT},
       course_order = #{record.courseOrder,jdbcType=INTEGER},
-      business_card = #{record.businessCard,jdbcType=VARCHAR}
+      business_card = #{record.businessCard,jdbcType=VARCHAR},
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -229,5 +231,8 @@
       business_card = #{businessCard,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
       and course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateArchive">
+    update user_course set is_archive=#{archiveState,jdbcType=BIT} where user_id=#{userId,jdbcType=INTEGER} and course_id=#{courseId}
   </update>
 </mapper>

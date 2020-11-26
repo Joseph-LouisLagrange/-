@@ -68,7 +68,7 @@ public class WebLogAdvise {
         stringBuffer.append(method.getName()).append('(');
         List<String> argAggregations=new ArrayList<>();
         for(int i=0;i<parameters.length&&i<args.length;i++){
-            argAggregations.add(args[i].toString()+"->"+parameters[i].getName());
+            argAggregations.add(args[i]+"->"+parameters[i].getName());
         }
         stringBuffer.append(String.join(" , ",argAggregations));
         stringBuffer.append(')');

@@ -122,7 +122,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <select id="getTeacherCustomMajorsByUserId" resultType="com.alpha.classpie.pojo.user.TeacherCustomMajor">
+  <select id="getTeacherCustomMajorsByUserId" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"></include> from teacher_custom_major where user_id=#{userId}
   </select>
   <update id="updateByExampleSelective" parameterType="map">

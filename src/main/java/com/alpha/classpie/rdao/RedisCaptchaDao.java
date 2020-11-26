@@ -24,7 +24,7 @@ public abstract class RedisCaptchaDao<T> implements CaptchaDao<T>{
 
 
     protected String aggregate(String sessionId,String captchaId){
-        return sessionId+"-"+captchaId;
+        return captchaId+":"+sessionId;
     }
 
     @Override

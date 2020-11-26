@@ -1,5 +1,6 @@
 package com.alpha.classpie.pojo.course;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Date;
@@ -17,16 +18,18 @@ public class Course {
 
     private String className;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date termYear;
 
     private Integer semester;
 
     private Boolean isArchive;
 
+    Integer theme=-1;
 
-
-    public Course(Integer id, Integer adminTeacherId, String code, String name, String className, Date termYear, Integer semester, Boolean isArchive) {
+    public Course(Integer id, Integer adminTeacherId, String code, String name, String className, Date termYear, Integer semester, Boolean isArchive,Integer theme) {
         this.id = id;
+        this.theme=theme;
         this.adminTeacherId = adminTeacherId;
         this.code = code;
         this.name = name;

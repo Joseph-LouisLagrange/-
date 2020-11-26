@@ -102,11 +102,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.alpha.classpie.pojo.bulletin.Bulletin">
-    insert into bulletin (id, name, resume,
+  <insert id="insert" parameterType="com.alpha.classpie.pojo.bulletin.Bulletin" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+    insert into bulletin (name, resume,
       publisher_id, course_id, datetime
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{resume,jdbcType=VARCHAR},
+    values ( #{name,jdbcType=VARCHAR}, #{resume,jdbcType=VARCHAR},
       #{publisherId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, #{datetime,jdbcType=TIMESTAMP}
       )
   </insert>

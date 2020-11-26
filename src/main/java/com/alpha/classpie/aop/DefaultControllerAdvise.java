@@ -44,6 +44,7 @@ public class DefaultControllerAdvise implements ResponseBodyAdvice<Object> , Req
     @ResponseBody
     @ExceptionHandler
     public ResultDto exceptionHandler(Exception e) throws Exception {
+        e.printStackTrace();
         return resultDtoAdapter.toResultDto(e);
     }
 

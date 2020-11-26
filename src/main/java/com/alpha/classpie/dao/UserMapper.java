@@ -33,5 +33,7 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    int getUserId(UserExample userExample);
+    Integer getUserId(UserExample userExample);
+
+    List<User> getUsersByIds(List<Integer> ids);
 }

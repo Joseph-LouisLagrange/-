@@ -1,24 +1,31 @@
 package com.alpha.classpie.dao;
 
 import com.alpha.classpie.example.BulletinReadExample;
-import com.alpha.classpie.pojo.bulletin.BulletinReadKey;
+import com.alpha.classpie.pojo.bulletin.BulletinRead;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+
+@Mapper
+@Repository
 public interface BulletinReadMapper {
     long countByExample(BulletinReadExample example);
 
     int deleteByExample(BulletinReadExample example);
 
-    int deleteByPrimaryKey(BulletinReadKey key);
+    int deleteByPrimaryKey(BulletinRead key);
 
-    int insert(BulletinReadKey record);
+    int insert(BulletinRead record);
 
-    int insertSelective(BulletinReadKey record);
+    int insertSelective(BulletinRead record);
 
-    List<BulletinReadKey> selectByExample(BulletinReadExample example);
+    List<BulletinRead> selectByExample(BulletinReadExample example);
 
-    int updateByExampleSelective(@Param("record") BulletinReadKey record, @Param("example") BulletinReadExample example);
+    int updateByExampleSelective(@Param("record") BulletinRead record, @Param("example") BulletinReadExample example);
 
-    int updateByExample(@Param("record") BulletinReadKey record, @Param("example") BulletinReadExample example);
+    int updateByExample(@Param("record") BulletinRead record, @Param("example") BulletinReadExample example);
+
 }

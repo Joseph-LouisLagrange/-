@@ -28,6 +28,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 登录成功后 走此类进行鉴权操作
@@ -37,7 +39,7 @@ import java.util.Collection;
 @Getter
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    UserService<User> userService;
+    UserService userService;
 
 
     public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
@@ -51,7 +53,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String tokenHeader = request.getHeader(JwtTokenUtil.TOKEN_HEADER);
-
         // 若请求头中没有Authorization信息 或是Authorization不以Bearer开头 则直接放行
         if (tokenHeader == null || !tokenHeader.startsWith(JwtTokenUtil.TOKEN_PREFIX))
         {
@@ -75,13 +76,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         // 从Token中解密获取用户名
         String username = JwtTokenUtil.getUsername(token);
         // 从Token中解密获取用户角色
-        Collection<? extends GrantedAuthority> authorities = JwtTokenUtil.getUserRoles(token);
         //解密userId
         Integer userId = JwtTokenUtil.getUserId(token);
-        User user = userService.getUserById(userId);
-        if (username != null)
+
+         if (username != null && userId!=null)
         {
-            return new UsernamePasswordAuthenticationToken(username, user.getPassword(),user.getAuthorities());
+            User user =userService.getUserById(userId);
+            List<SimpleGrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName())).collect(Collectors.toList());
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, user.getPassword(), authorities);
+            usernamePasswordAuthenticationToken.setDetails(user);
+            return usernamePasswordAuthenticationToken;
         }
         return null;
     }

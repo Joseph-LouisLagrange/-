@@ -18,8 +18,26 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Teacher extends User {
-    List<TeacherCustomMajor> teacherCustomMajors=null;
-    List<Department> teacherDepartments=null;
-    List<Major> majors=null;
-    List<TeacherTeachCourse> teacherTeachCourses =null;
+    protected List<TeacherCustomMajor> teacherCustomMajors=null;
+    protected List<Department> teacherDepartments=null;
+    protected List<Major> majors=null;
+    protected List<TeacherTeachCourse> teacherTeachCourses =null;
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "teacherCustomMajors=" + teacherCustomMajors +
+                ", teacherDepartments=" + teacherDepartments +
+                ", majors=" + majors +
+                ", teacherTeachCourses=" + teacherTeachCourses +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", school='" + school + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", emailNumber='" + emailNumber + '\'' +
+                ", telephoneNumber='" + telephoneNumber + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

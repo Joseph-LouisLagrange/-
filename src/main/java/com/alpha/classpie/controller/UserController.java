@@ -1,33 +1,27 @@
 package com.alpha.classpie.controller;
 
-import com.alpha.classpie.annotation.NoDto;
 import com.alpha.classpie.config.sms.SmsCodeAuthenticationToken;
 import com.alpha.classpie.dto.exception.ExceptionDto;
-import com.alpha.classpie.dto.safeimpl.DataWrapper;
+import com.alpha.classpie.dto.DataWrapper;
 
-import com.alpha.classpie.dto.safeimpl.UserSafeWrapper;
+import com.alpha.classpie.dto.warpper.UserSafeWrapper;
 import com.alpha.classpie.pojo.user.User;
-import com.alpha.classpie.service.impl.SimpleUserService;
+import com.alpha.classpie.rdao.VirtualSession;
+import com.alpha.classpie.service.inf.UserService;
 import com.alpha.classpie.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.UUID;
 
 /**
  * @author 杨能
@@ -37,20 +31,30 @@ import java.util.Collections;
 @RequestMapping("/user")
 public class UserController {
 
-    public static User getUser(){
-        return  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+    public static final String USERID="userId";
 
-    @Resource(name = "defaultUserDetails")
-    UserDetailsService userService;
+    public static final String TOKEN_HEADER="token";
 
     @Resource(name = "defaultUserService")
-    SimpleUserService simpleUserService;
+    UserService userService;
 
-    public static final String USERID ="USERID";
+    //获取当前的用户
+    public static User getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User) authentication
+                .getDetails();
+    }
+
+    public static int getUserId(){
+        return getUser().getId();
+    }
+
 
     @Autowired
-    DataWrapper dataWrapper;
+    VirtualSession virtualSession;   //未认证前的临时虚拟session
+
+    @Autowired
+    DataWrapper dataWrapper;   //数据传输的包装器
 
 
     @RequestMapping("/login")
@@ -60,8 +64,8 @@ public class UserController {
     }
 
     @RequestMapping("/loginFail")
-    public String loginFail(){
-        return "失败";
+    public boolean loginFail(){
+        return false;
     }
 
     /**
@@ -69,8 +73,9 @@ public class UserController {
      * @param response
      * @return
      */
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping("/loginSuccess")
-    public String loginSuccess(HttpServletResponse response){
+    public boolean loginSuccess(HttpServletResponse response){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user=null;
         if(authentication instanceof UsernamePasswordAuthenticationToken){
@@ -81,29 +86,73 @@ public class UserController {
         }else {
             throw new ExceptionDto("认证异常","未知的认证令牌","重新登陆");
         }
-        String token = JwtTokenUtil.createToken(user.getUsername(),user.getId(),user.getAuthorities());
-
+        String token = JwtTokenUtil.createToken(user.getUsername(),user.getId());
         // 在请求头里返回创建成功的token
         // 设置请求头为带有"Bearer "前缀的token字符串
-        response.setHeader("token", JwtTokenUtil.TOKEN_PREFIX + token);
-        return "成功";
-    }
-
-
-    @NoDto
-    @PreAuthorize("isAnonymous()")
-    @RequestMapping("/usernamePasswordLoginProcess")
-    public boolean loginProcess(@RequestParam("username")String username,@RequestParam("password")String password){
-        UserDetails userDetails = userService.loadUserByUsername(username);
-        //SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities()));
+        response.setHeader(TOKEN_HEADER, JwtTokenUtil.TOKEN_PREFIX + token);
         return true;
     }
+
 
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping("/getMe")
     public UserSafeWrapper getMe(){
         User user=getUser();
-        System.out.println(user);
         return dataWrapper.doUserSafeWrap(user);
+    }
+
+    @PreAuthorize("permitAll()")
+    @RequestMapping("/getVirtualId")
+    public String getVirtualId(){
+        return UUID.randomUUID().toString();
+    }
+
+    @PreAuthorize("permitAll()")
+    @RequestMapping("/hasUsername")
+    public boolean hasTelephone(@RequestParam(name = "username") String username){
+        return userService.hasUsername(username);
+    }
+
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping("/simpleUpdateUser")
+    public User simpleUpdateUser(@Validated @RequestBody User user){
+        return userService.updateUser(user,UserController.getUserId());
+    }
+
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping("/unbindTelephone")
+    public boolean unbindTelephone(@RequestParam(name = "password")String password){
+        return userService.unbindTelephone(UserController.getUserId(),password);
+    }
+
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping("/unbindEmail")
+    public boolean unbindEmail(@RequestParam(name = "password")String password){
+        return userService.unbindEmail(UserController.getUserId(),password);
+    }
+
+    @RequestMapping("/bindEmail")
+    public boolean bindEmail(@RequestParam("email")String email,@RequestParam("verificationCode")int verificationCode){
+        return userService.bindEmail(UserController.getUserId(),email,verificationCode);
+    }
+
+    @RequestMapping("/bindTelephone")
+    public boolean bindTelephone(@RequestParam("phone")String phone,@RequestParam("verificationCode")int verificationCode){
+        return userService.bindTelephone(UserController.getUserId(),phone,verificationCode);
+    }
+
+    @RequestMapping("/getSafeUser")
+    public User getSafeUser(@RequestParam(value = "username",required = false)String username,@RequestParam(value = "userId",required = false)Integer userId){
+        User user=null;
+        if(userId!=null){
+            user=userService.getUserById(userId);
+        }
+        if(StringUtils.hasText(username)){
+            user=userService.getUserByUsername(username);
+        }
+        if(user!=null){
+           return dataWrapper.doUserSafeWrap(user);
+        }
+        return null;
     }
 }

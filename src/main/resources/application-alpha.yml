@@ -25,4 +25,20 @@ SMS:
       regionId: cn-hangzhou
       signName: 网络教学系统Unit
       templateCode: SMS_190784667
-
+fileplan:
+  basePath: E:\classpie\fileplan
+  chunkThreshold: 30
+  tempPath: E:\classpie\tempDirectory
+notice:
+  release-task:
+    subject: 发布新作业
+    content: "[课程{0}] 老师 {1} 发布了新作业,作业标题为[ {2} ],请及时查看完成"
+  recall-task:
+    subject: 作业打回
+    content: "[课程{0}] 老师 {1} 打回了你提交的关于[ {2} ]的作业,请重新提交"
+  correct-task:
+    subject: 作业已批阅
+    content: "[课程{0}] 老师 {1} 批阅了你提交的关于[ {2} ]的作业,请查看成绩"
+  expedite-task:
+    subject: 作业催交
+    content: "[课程{0}] 老师 {1} 催交作业[ {2} ]"

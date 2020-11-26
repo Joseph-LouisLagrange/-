@@ -40,4 +40,6 @@ public interface CourseMapper {
     Integer updateArchive(@Param("archiveState") boolean archiveState,@Param("id") Integer id);
 
     List<Course> getCourses(@Param("userId") int userId,@Param("roleId") int roleId);
+
+    int updateCourseCode(@Param("courseId") int  courseId,@Param("courseCode")String courseCode);
 }

@@ -7,6 +7,7 @@
 <body>
     <script>
         var xmlhttp;
+        let token="eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxIiwic3ViIjoiYzc0ZmU1ZTEtMzIwYi00ZTUyLTgyOGUtMDk1Nzc4OWIxYjM4IiwiaWF0IjoxNjA1OTUyNzgwLCJleHAiOjE2MDY1NTc1ODB9.HT8vK2JRJ8RJTYWwU9zd3beXijG-ORh2ep26o18088Y";
         if (window.XMLHttpRequest)
         {
             //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
@@ -24,8 +25,9 @@
                 console.log(xmlhttp.responseText)
             }
         }
-        xmlhttp.open("GET","http://127.0.0.1:8046/test/getSessionId",true);
+        xmlhttp.open("GET","http://127.0.0.1:8046/course/getTeachCourses",true);
         xmlhttp.withCredentials = true;
+        xmlhttp.setRequestHeader("Authorization","Bearer "+token);
         xmlhttp.send();
     </script>
 </body>

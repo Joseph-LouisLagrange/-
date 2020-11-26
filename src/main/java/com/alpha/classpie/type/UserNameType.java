@@ -5,5 +5,5 @@ package com.alpha.classpie.type;
  * @create 2020/11/5
  */
 public enum UserNameType {
-    ACCOUNT,EMAIL,PHONE
+    ACCOUNT,EMAIL,PHONE,UNKNOWN
 }

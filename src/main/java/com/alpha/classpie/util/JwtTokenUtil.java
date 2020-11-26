@@ -25,7 +25,7 @@ public class JwtTokenUtil {
     // 过期时间
     public static final long EXPIRITION = 1000 * 24 * 60 * 60 * 7;
     // 应用密钥
-    public static final String APPSECRET_KEY = UUID.randomUUID().toString();
+    public static final String APPSECRET_KEY = "mishi";
     // 角色权限声明
     private static final String ROLE_CLAIMS = "role";
     // UserId声明
@@ -38,14 +38,11 @@ public class JwtTokenUtil {
     /**
      * 生成Token
      */
-    public static String createToken(String username,int userId, Collection<? extends GrantedAuthority> roles) {
-        Map<String,Object> map = new HashMap<>();
-        map.put(USERID,userId);
-        map.put(ROLE_CLAIMS, roles);
+    public static String createToken(String username,int userId) {
         String token = Jwts
                 .builder()
+                .setId(String.valueOf(userId))
                 .setSubject(username)
-                .setClaims(map)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRITION))
                 .signWith(SignatureAlgorithm.HS256, APPSECRET_KEY).compact();
@@ -74,16 +71,7 @@ public class JwtTokenUtil {
     }
 
     public static Integer getUserId(String token){
-        return Objects.requireNonNull(checkJWT(token)).get(USERID,Integer.class);
-    }
-
-    /**
-     * 从Token中获取用户角色
-     */
-    public static Collection<? extends GrantedAuthority> getUserRoles(String token){
-        Claims claims = checkJWT(token);
-        List<? extends GrantedAuthority> list=new ArrayList<>();
-        return claims.get(ROLE_CLAIMS,list.getClass());
+        return Integer.parseInt(Objects.requireNonNull(Objects.requireNonNull(checkJWT(token)).getId()));
     }
 
     /**

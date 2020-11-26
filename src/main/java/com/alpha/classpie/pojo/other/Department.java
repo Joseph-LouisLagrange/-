@@ -10,7 +10,6 @@ import lombok.ToString;
 @Data
 public class Department extends WeakenedDepartment {
 
-
     EducationLevel educationLevel;
 
     public Department(Integer id, String name) {
