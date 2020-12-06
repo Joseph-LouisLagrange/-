@@ -116,7 +116,12 @@ public class UserController {
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping("/simpleUpdateUser")
     public User simpleUpdateUser(@Validated @RequestBody User user){
-        return userService.updateUser(user,UserController.getUserId());
+        return dataWrapper.doUserSafeWrap(userService.updateUser(user,UserController.getUserId()));
+    }
+
+    @RequestMapping("/updateEmail")
+    public boolean updateEmail(@RequestParam(name = "password")String password,@RequestParam("newEmail")String email){
+        return userService.updateEmail(UserController.getUserId(),password,email);
     }
 
     @PreAuthorize("isFullyAuthenticated()")

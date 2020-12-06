@@ -25,7 +25,7 @@ public class Course {
 
     private Boolean isArchive;
 
-    Integer theme=-1;
+    Integer theme;
 
     public Course(Integer id, Integer adminTeacherId, String code, String name, String className, Date termYear, Integer semester, Boolean isArchive,Integer theme) {
         this.id = id;

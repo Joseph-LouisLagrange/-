@@ -69,8 +69,9 @@ public class CourseServiceImpl implements CourseService {
         course.setCode(createCourseCode());
         course.setAdminTeacherId(userId);
         course.setIsArchive(false);
+        course.setTheme(1);
         courseMapper.insert(course);
-        internalEnterCourse(course.getId(),userId);
+        internalEnterCourse(Role.TEACHER,course.getId(),userId);
         return course;
     }
 
@@ -87,6 +88,7 @@ public class CourseServiceImpl implements CourseService {
         if(usersId.size()==0) return Collections.emptyList();
         return userService.getUsersByIds(usersId);
     }
+
 
     @Override
     public List<User> getTeachers(int courseId) {
@@ -131,14 +133,14 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.deleteByPrimaryKey(courseId) > 0;
     }
 
-    private boolean internalEnterCourse(int courseId,int userId){
-        return userCourseMapper.insertSelective(new UserCourse(userId,courseId, Role.STUDENT,false,getNextOrder(userId),null))>0;
+    private boolean internalEnterCourse(Role role,int courseId,int userId){
+        return userCourseMapper.insertSelective(new UserCourse(userId,courseId, role,false,getNextOrder(userId),null))>0;
     }
 
     @Override
     public Course enterCourse(String courseCode, int userId) {
         Course course=courseMapper.getCourseByCode(courseCode);
-        if(internalEnterCourse(course.getId(),userId)){
+        if(internalEnterCourse(Role.STUDENT,course.getId(),userId)){
             return course;
         }else {
             return null;

@@ -101,7 +101,8 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.alpha.classpie.pojo.task.ExpediteTask">
+
+    <insert id="insert" parameterType="com.alpha.classpie.pojo.task.ExpediteTask">
     insert into expedite_task (task_id, user_id, count
       )
     values (#{taskId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}
@@ -177,6 +178,12 @@
   <update id="updateByPrimaryKey" parameterType="com.alpha.classpie.pojo.task.ExpediteTask">
     update expedite_task
     set count = #{count,jdbcType=INTEGER}
+    where task_id = #{taskId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="selfIncreaseCount">
+    update expedite_task
+    set count = count +1
     where task_id = #{taskId,jdbcType=INTEGER}
       and user_id = #{userId,jdbcType=INTEGER}
   </update>

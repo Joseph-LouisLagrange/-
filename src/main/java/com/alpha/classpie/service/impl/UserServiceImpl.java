@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
             //添加学号
             studentMapper.insert(student);
         }
-        return null;
+        return user;
     }
 
     @Override
@@ -150,7 +150,7 @@ public class UserServiceImpl implements UserService {
             //添加学号
             studentMapper.insert(student);
         }
-        return null;
+        return user;
     }
 
     @Override
@@ -318,10 +318,36 @@ public class UserServiceImpl implements UserService {
         user.setId(id);
         String password = user.getPassword();
         //密码安全编码
-        user.setPassword(passwordEncoder.encode(password));
-        userMapper.updateByPrimaryKey(user);
+        if(password!=null)
+            user.setPassword(passwordEncoder.encode(password));
+        userMapper.updateByPrimaryKeySelective(user);
         return user;
     }
+
+    @CacheEvict(value = "user",key = "#userId")
+    @Override
+    public boolean updateEmail(int userId, String password, String email) {
+        if(checkPassword(userId, password)){
+            User user = new User();
+            user.setId(userId);
+            user.setEmailNumber(email);
+           return userMapper.updateByPrimaryKeySelective(user)>0;
+        }
+        return false;
+    }
+
+    @CacheEvict(value = "user",key = "#userId")
+    @Override
+    public boolean updateTelephone(int userId, String password, String telephone) {
+        if(checkPassword(userId, password)){
+            User user = new User();
+            user.setId(userId);
+            user.setTelephoneNumber(telephone);
+            return userMapper.updateByPrimaryKeySelective(user)>0;
+        }
+        return false;
+    }
+
 
     protected boolean setSafeTelephone(int userId, String telephone, String password){
         if(!checkPassword(userId,password)){

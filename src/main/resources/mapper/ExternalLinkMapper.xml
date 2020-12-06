@@ -6,7 +6,8 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="link" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="area_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="course_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="datetime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, link, area_id
+    id, title, link, course_id, datetime
   </sql>
   <select id="selectByExample" parameterType="com.alpha.classpie.example.ExternalLinkExample" resultMap="BaseResultMap">
     select
@@ -101,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.alpha.classpie.pojo.ExternalLink">
-    insert into external_link (id, title, link,
-      area_id)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR},
-      #{areaId,jdbcType=INTEGER})
+    insert into external_link (title, link,
+      course_id, datetime)
+    values (#{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR},
+      #{courseId,jdbcType=INTEGER}, #{datetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.alpha.classpie.pojo.ExternalLink">
     insert into external_link
@@ -118,8 +119,11 @@
       <if test="link != null">
         link,
       </if>
-      <if test="areaId != null">
-        area_id,
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="datetime != null">
+        datetime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -132,8 +136,11 @@
       <if test="link != null">
         #{link,jdbcType=VARCHAR},
       </if>
-      <if test="areaId != null">
-        #{areaId,jdbcType=INTEGER},
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="datetime != null">
+        #{datetime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -155,8 +162,11 @@
       <if test="record.link != null">
         link = #{record.link,jdbcType=VARCHAR},
       </if>
-      <if test="record.areaId != null">
-        area_id = #{record.areaId,jdbcType=INTEGER},
+      <if test="record.courseId != null">
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.datetime != null">
+        datetime = #{record.datetime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -168,7 +178,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       link = #{record.link,jdbcType=VARCHAR},
-      area_id = #{record.areaId,jdbcType=INTEGER}
+      course_id = #{record.courseId,jdbcType=INTEGER},
+      datetime = #{record.datetime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -182,8 +193,11 @@
       <if test="link != null">
         link = #{link,jdbcType=VARCHAR},
       </if>
-      <if test="areaId != null">
-        area_id = #{areaId,jdbcType=INTEGER},
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="datetime != null">
+        datetime = #{datetime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -192,7 +206,8 @@
     update external_link
     set title = #{title,jdbcType=VARCHAR},
       link = #{link,jdbcType=VARCHAR},
-      area_id = #{areaId,jdbcType=INTEGER}
+      course_id = #{courseId,jdbcType=INTEGER},
+      datetime = #{datetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -3,8 +3,13 @@ package com.alpha.classpie.dao;
 import com.alpha.classpie.pojo.ExternalLink;
 import com.alpha.classpie.example.ExternalLinkExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
 public interface ExternalLinkMapper {
     long countByExample(ExternalLinkExample example);
 

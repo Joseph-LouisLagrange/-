@@ -141,6 +141,11 @@
             property属性来指定列要生成的属性名称.
          -->
         <!--<columnOverride column="username" property="userName" />-->
+<!--        <table tableName="word_details" domainObjectName="WordDetails"/>-->
+<!--        <table tableName="word_phonetic_transcription" domainObjectName="WordPhoneticTranscription"/>-->
+<!--        <table tableName="translation" domainObjectName="Translation"/>-->
+<!--        <table tableName="graphic_example_sentences" domainObjectName="GraphicExampleSentences"/>-->
+<!--    <table tableName="word_english_interpretation" domainObjectName="WordEnglishInterpretation"/>-->
     </context>
 
 </generatorConfiguration>

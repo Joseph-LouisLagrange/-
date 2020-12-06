@@ -42,3 +42,8 @@ notice:
   expedite-task:
     subject: 作业催交
     content: "[课程{0}] 老师 {1} 催交作业[ {2} ]"
+cache:
+  pdf-file:
+    name: pdfFile
+    expire-timeout: 10
+    time-unit: MINUTES

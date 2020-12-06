@@ -15,4 +15,14 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode(callSuper = true)
 public class StudentRegisterDto extends RegisterDto<Integer> {
     private Student student;
+
+    @Override
+    public String toString() {
+        return "StudentRegisterDto{" +
+                "student=" + student +
+                ", captcha=" + captcha +
+                ", virtualId='" + virtualId + '\'' +
+                ", registerUsername='" + registerUsername + '\'' +
+                '}';
+    }
 }

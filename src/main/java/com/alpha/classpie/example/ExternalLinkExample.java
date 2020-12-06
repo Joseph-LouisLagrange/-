@@ -1,6 +1,7 @@
 package com.alpha.classpie.example;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ExternalLinkExample {
@@ -304,63 +305,123 @@ public class ExternalLinkExample {
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdIsNull() {
-            addCriterion("area_id is null");
+        public Criteria andCourseIdIsNull() {
+            addCriterion("course_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdIsNotNull() {
-            addCriterion("area_id is not null");
+        public Criteria andCourseIdIsNotNull() {
+            addCriterion("course_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdEqualTo(Integer value) {
-            addCriterion("area_id =", value, "areaId");
+        public Criteria andCourseIdEqualTo(Integer value) {
+            addCriterion("course_id =", value, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdNotEqualTo(Integer value) {
-            addCriterion("area_id <>", value, "areaId");
+        public Criteria andCourseIdNotEqualTo(Integer value) {
+            addCriterion("course_id <>", value, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdGreaterThan(Integer value) {
-            addCriterion("area_id >", value, "areaId");
+        public Criteria andCourseIdGreaterThan(Integer value) {
+            addCriterion("course_id >", value, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("area_id >=", value, "areaId");
+        public Criteria andCourseIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("course_id >=", value, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdLessThan(Integer value) {
-            addCriterion("area_id <", value, "areaId");
+        public Criteria andCourseIdLessThan(Integer value) {
+            addCriterion("course_id <", value, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdLessThanOrEqualTo(Integer value) {
-            addCriterion("area_id <=", value, "areaId");
+        public Criteria andCourseIdLessThanOrEqualTo(Integer value) {
+            addCriterion("course_id <=", value, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdIn(List<Integer> values) {
-            addCriterion("area_id in", values, "areaId");
+        public Criteria andCourseIdIn(List<Integer> values) {
+            addCriterion("course_id in", values, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdNotIn(List<Integer> values) {
-            addCriterion("area_id not in", values, "areaId");
+        public Criteria andCourseIdNotIn(List<Integer> values) {
+            addCriterion("course_id not in", values, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdBetween(Integer value1, Integer value2) {
-            addCriterion("area_id between", value1, value2, "areaId");
+        public Criteria andCourseIdBetween(Integer value1, Integer value2) {
+            addCriterion("course_id between", value1, value2, "courseId");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("area_id not between", value1, value2, "areaId");
+        public Criteria andCourseIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("course_id not between", value1, value2, "courseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeIsNull() {
+            addCriterion("datetime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeIsNotNull() {
+            addCriterion("datetime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeEqualTo(Date value) {
+            addCriterion("datetime =", value, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeNotEqualTo(Date value) {
+            addCriterion("datetime <>", value, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeGreaterThan(Date value) {
+            addCriterion("datetime >", value, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("datetime >=", value, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLessThan(Date value) {
+            addCriterion("datetime <", value, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeLessThanOrEqualTo(Date value) {
+            addCriterion("datetime <=", value, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeIn(List<Date> values) {
+            addCriterion("datetime in", values, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeNotIn(List<Date> values) {
+            addCriterion("datetime not in", values, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeBetween(Date value1, Date value2) {
+            addCriterion("datetime between", value1, value2, "datetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDatetimeNotBetween(Date value1, Date value2) {
+            addCriterion("datetime not between", value1, value2, "datetime");
             return (Criteria) this;
         }
     }

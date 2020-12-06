@@ -1,5 +1,10 @@
 package com.alpha.classpie.pojo;
 
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
 public class ExternalLink {
     private Integer id;
 
@@ -7,13 +12,16 @@ public class ExternalLink {
 
     private String link;
 
-    private Integer areaId;
+    private Integer courseId;
 
-    public ExternalLink(Integer id, String title, String link, Integer areaId) {
+    private Date datetime;
+
+    public ExternalLink(Integer id, String title, String link, Integer courseId, Date datetime) {
         this.id = id;
         this.title = title;
         this.link = link;
-        this.areaId = areaId;
+        this.courseId = courseId;
+        this.datetime = datetime;
     }
 
     public ExternalLink() {
@@ -44,11 +52,19 @@ public class ExternalLink {
         this.link = link;
     }
 
-    public Integer getAreaId() {
-        return areaId;
+    public Integer getCourseId() {
+        return courseId;
     }
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
+    public void setCourseId(Integer courseId) {
+        this.courseId = courseId;
+    }
+
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
     }
 }

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alpha.classpie.bcz.WordEnglishInterpretationMapper">
+  <resultMap id="BaseResultMap" type="com.alpha.classpie.bcz.model.WordEnglishInterpretationKey">
+    <constructor>
+      <idArg column="word_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="english_interpretation" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    word_id, english_interpretation
+  </sql>
+  <select id="selectByExample" parameterType="com.alpha.classpie.bcz.model.WordEnglishInterpretationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from word_english_interpretation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.alpha.classpie.bcz.model.WordEnglishInterpretationKey">
+    delete from word_english_interpretation
+    where word_id = #{wordId,jdbcType=INTEGER}
+      and english_interpretation = #{englishInterpretation,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alpha.classpie.bcz.model.WordEnglishInterpretationExample">
+    delete from word_english_interpretation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alpha.classpie.bcz.model.WordEnglishInterpretationKey">
+    insert into word_english_interpretation (word_id, english_interpretation)
+    values (#{wordId,jdbcType=INTEGER}, #{englishInterpretation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alpha.classpie.bcz.model.WordEnglishInterpretationKey">
+    insert into word_english_interpretation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wordId != null">
+        word_id,
+      </if>
+      <if test="englishInterpretation != null">
+        english_interpretation,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wordId != null">
+        #{wordId,jdbcType=INTEGER},
+      </if>
+      <if test="englishInterpretation != null">
+        #{englishInterpretation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alpha.classpie.bcz.model.WordEnglishInterpretationExample" resultType="java.lang.Long">
+    select count(*) from word_english_interpretation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update word_english_interpretation
+    <set>
+      <if test="record.wordId != null">
+        word_id = #{record.wordId,jdbcType=INTEGER},
+      </if>
+      <if test="record.englishInterpretation != null">
+        english_interpretation = #{record.englishInterpretation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update word_english_interpretation
+    set word_id = #{record.wordId,jdbcType=INTEGER},
+      english_interpretation = #{record.englishInterpretation,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,6 +1,7 @@
 package com.alpha.classpie.pojo.user;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Getter;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 @Setter
 @Getter
 @ToString
-@Valid
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends org.springframework.security.core.userdetails.User {
     protected Integer id;
 

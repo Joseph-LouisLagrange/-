@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alpha.classpie.dao.SubmitTaskMapper">
+  <resultMap id="BaseResultMap" type="com.alpha.classpie.pojo.task.SubmitTask">
+    <constructor>
+      <idArg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <idArg column="task_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="is_correct" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="similarity" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="is_on_time" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="score" javaType="java.lang.Float" jdbcType="REAL" />
+      <arg column="word_count" javaType="java.lang.Long" jdbcType="BIGINT" />
+      <arg column="datetime" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, task_id, is_correct, similarity, is_on_time, score, word_count, datetime
+  </sql>
+  <select id="selectByExample" parameterType="com.alpha.classpie.example.SubmitTaskExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from submit_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.alpha.classpie.pojo.task.SubmitTaskKey" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from submit_task
+    where user_id = #{userId,jdbcType=INTEGER}
+      and task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.alpha.classpie.pojo.task.SubmitTaskKey">
+    delete from submit_task
+    where user_id = #{userId,jdbcType=INTEGER}
+      and task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.alpha.classpie.example.SubmitTaskExample">
+    delete from submit_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.alpha.classpie.pojo.task.SubmitTask">
+    insert into submit_task (user_id, task_id, is_correct,
+      similarity, is_on_time, score,
+      word_count, datetime)
+    values (#{userId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{isCorrect,jdbcType=BIT},
+      #{similarity,jdbcType=INTEGER}, #{isOnTime,jdbcType=BIT}, #{score,jdbcType=REAL},
+      #{wordCount,jdbcType=BIGINT}, #{datetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alpha.classpie.pojo.task.SubmitTask">
+    insert into submit_task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="isCorrect != null">
+        is_correct,
+      </if>
+      <if test="similarity != null">
+        similarity,
+      </if>
+      <if test="isOnTime != null">
+        is_on_time,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="wordCount != null">
+        word_count,
+      </if>
+      <if test="datetime != null">
+        datetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="isCorrect != null">
+        #{isCorrect,jdbcType=BIT},
+      </if>
+      <if test="similarity != null">
+        #{similarity,jdbcType=INTEGER},
+      </if>
+      <if test="isOnTime != null">
+        #{isOnTime,jdbcType=BIT},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=REAL},
+      </if>
+      <if test="wordCount != null">
+        #{wordCount,jdbcType=BIGINT},
+      </if>
+      <if test="datetime != null">
+        #{datetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.alpha.classpie.example.SubmitTaskExample" resultType="java.lang.Long">
+    select count(*) from submit_task
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update submit_task
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCorrect != null">
+        is_correct = #{record.isCorrect,jdbcType=BIT},
+      </if>
+      <if test="record.similarity != null">
+        similarity = #{record.similarity,jdbcType=INTEGER},
+      </if>
+      <if test="record.isOnTime != null">
+        is_on_time = #{record.isOnTime,jdbcType=BIT},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=REAL},
+      </if>
+      <if test="record.wordCount != null">
+        word_count = #{record.wordCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.datetime != null">
+        datetime = #{record.datetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update submit_task
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=INTEGER},
+      is_correct = #{record.isCorrect,jdbcType=BIT},
+      similarity = #{record.similarity,jdbcType=INTEGER},
+      is_on_time = #{record.isOnTime,jdbcType=BIT},
+      score = #{record.score,jdbcType=REAL},
+      word_count = #{record.wordCount,jdbcType=BIGINT},
+      datetime = #{record.datetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alpha.classpie.pojo.task.SubmitTask">
+    update submit_task
+    <set>
+      <if test="isCorrect != null">
+        is_correct = #{isCorrect,jdbcType=BIT},
+      </if>
+      <if test="similarity != null">
+        similarity = #{similarity,jdbcType=INTEGER},
+      </if>
+      <if test="isOnTime != null">
+        is_on_time = #{isOnTime,jdbcType=BIT},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=REAL},
+      </if>
+      <if test="wordCount != null">
+        word_count = #{wordCount,jdbcType=BIGINT},
+      </if>
+      <if test="datetime != null">
+        datetime = #{datetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+      and task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alpha.classpie.pojo.task.SubmitTask">
+    update submit_task
+    set is_correct = #{isCorrect,jdbcType=BIT},
+      similarity = #{similarity,jdbcType=INTEGER},
+      is_on_time = #{isOnTime,jdbcType=BIT},
+      score = #{score,jdbcType=REAL},
+      word_count = #{wordCount,jdbcType=BIGINT},
+      datetime = #{datetime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+      and task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+</mapper>

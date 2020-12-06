@@ -4,8 +4,13 @@ import com.alpha.classpie.pojo.task.ExpediteTask;
 import com.alpha.classpie.example.ExpediteTaskExample;
 import com.alpha.classpie.pojo.task.ExpediteTaskKey;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Mapper
+@Repository
 public interface ExpediteTaskMapper {
     long countByExample(ExpediteTaskExample example);
 
@@ -28,4 +33,6 @@ public interface ExpediteTaskMapper {
     int updateByPrimaryKeySelective(ExpediteTask record);
 
     int updateByPrimaryKey(ExpediteTask record);
+
+    int selfIncreaseCount(ExpediteTaskKey key);
 }

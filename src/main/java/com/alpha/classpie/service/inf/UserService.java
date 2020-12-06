@@ -53,6 +53,8 @@ public interface UserService{
     public User roleToStudent(User user);
     public User roleToTeacher(User user);
     public User updateUser(User user,int id);
+    public boolean updateEmail(int userId,String password,String email);
+    public boolean updateTelephone(int userId,String password,String telephone);
     public boolean unbindTelephone(int userId,String password);
     public boolean unbindEmail(int userId,String password);
     public boolean bindTelephone(int userId, @NotNull String telephone, int verificationCode);

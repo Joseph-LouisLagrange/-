@@ -87,7 +87,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.apply(smsCodeAuthenticationSecurityConfig);
         http.csrf().disable();
-        http.headers().frameOptions().and().contentTypeOptions();
+        http.headers().frameOptions().disable();
         http.cors().configurationSource(corsConfigurationSource());
         // 添加JWT登录拦截器
         http.addFilter(jwtAuthenticationFilter())

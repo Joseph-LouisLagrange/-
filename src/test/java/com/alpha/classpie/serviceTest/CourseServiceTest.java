@@ -92,7 +92,7 @@ public class CourseServiceTest {
     }
 
     @ParameterizedTest
-    @CsvSource("eo1ntv,10")
+    @CsvSource(value = {"ia8o65,10","ia8o65,15"})
     public void enterCourseTest(String courseCode,int userId){
         Assertions.assertNotNull(courseService.enterCourse(courseCode, userId));
     }

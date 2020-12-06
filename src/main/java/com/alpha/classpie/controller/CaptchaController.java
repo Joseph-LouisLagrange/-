@@ -96,7 +96,7 @@ public class CaptchaController {
             captchaExpire=emailRegisterRemoteCaptchaService.getCaptchaExpireSeconds(username);
         }else if(UserNameType.PHONE==userNameType){
             //电话类型
-            if(!emailRegisterRemoteCaptchaService.hasCaptchaKey(username)){
+            if(!smsRegisterRemoteCaptchaService.hasCaptchaKey(username)){
                 smsRegisterRemoteCaptchaService.sendCaptcha(username);
             }
             captchaExpire =smsRegisterRemoteCaptchaService.getCaptchaExpireSeconds(username);
@@ -152,13 +152,13 @@ public class CaptchaController {
     @RequestMapping("bindTelephone/sendCaptcha")
     public long sendBindTelephoneCaptcha(
             @RequestParam(name = "telephone") String telephone
-            ,@RequestParam(name = "webCaptchaResult") int webCaptchaResult) throws Exception {
-            if(!bindUsernameWebRecognizedCaptchaService.checkCaptcha(String.valueOf(UserController.getUserId()),webCaptchaResult)){
-                return -1;
-            }else {
-                //删除图形码缓存
-                bindUsernameWebRecognizedCaptchaService.deleteCaptcha(telephone);
-            }
+            ,@RequestParam(name = "webCaptchaResult",required = false) int webCaptchaResult) throws Exception {
+//            if(!bindUsernameWebRecognizedCaptchaService.checkCaptcha(String.valueOf(UserController.getUserId()),webCaptchaResult)){
+//                return -1;
+//            }else {
+//                //删除图形码缓存
+//                bindUsernameWebRecognizedCaptchaService.deleteCaptcha(telephone);
+//            }
             if(!smsBindRemoteCaptchaService.hasCaptchaKey(telephone)){
                 //发送验证码
                 smsBindRemoteCaptchaService.sendCaptcha(telephone);
@@ -168,14 +168,14 @@ public class CaptchaController {
 
     @RequestMapping("bindEmail/sendCaptcha")
     public long bindEmailMathCaptcha(
-            @RequestParam(name = "webCaptchaResult") int webCaptchaResult
+            @RequestParam(name = "webCaptchaResult",required = false) int webCaptchaResult
             , @RequestParam(name = "emailAddress") String emailAddress) throws Exception {
-        if(!bindUsernameWebRecognizedCaptchaService.checkCaptcha(String.valueOf(UserController.getUserId()),webCaptchaResult)){
-            return -1;
-        }else {
-            //删除图形码缓存
-            bindUsernameWebRecognizedCaptchaService.deleteCaptcha(emailAddress);
-        }
+//        if(!bindUsernameWebRecognizedCaptchaService.checkCaptcha(String.valueOf(UserController.getUserId()),webCaptchaResult)){
+//            return -1;
+//        }else {
+//            //删除图形码缓存
+//            bindUsernameWebRecognizedCaptchaService.deleteCaptcha(emailAddress);
+//        }
         if(!emailBindRemoteCaptchaService.hasCaptchaKey(emailAddress)){
             //发送验证码
             emailBindRemoteCaptchaService.sendCaptcha(emailAddress);

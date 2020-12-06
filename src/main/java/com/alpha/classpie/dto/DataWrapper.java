@@ -11,9 +11,11 @@ import com.alpha.classpie.pojo.bulletin.Bulletin;
 import com.alpha.classpie.pojo.comment.Comment;
 import com.alpha.classpie.pojo.comment.CommentReply;
 import com.alpha.classpie.pojo.course.Course;
+import com.alpha.classpie.pojo.file.AttachmentResources;
 import com.alpha.classpie.pojo.task.ReturnTask;
 import com.alpha.classpie.pojo.task.SubmitTask;
 import com.alpha.classpie.pojo.task.Task;
+import com.alpha.classpie.pojo.task.TaskNotice;
 import com.alpha.classpie.pojo.user.*;
 import com.alpha.classpie.service.inf.*;
 import com.alpha.classpie.service.inf.comment.TaskCommentService;
@@ -49,6 +51,9 @@ public class DataWrapper {
     BulletinService bulletinService;
 
     @Autowired
+    RecallTaskService recallTaskService;
+
+    @Autowired
     UserCourseMapper userCourseMapper;
 
     @Autowired
@@ -65,6 +70,9 @@ public class DataWrapper {
 
     @Autowired
     SubmitTaskService submitTaskService;
+
+    @Autowired
+    AttachmentResourcesService attachmentResourcesService;
 
     @Autowired
     SubmitTaskFileMapper submitTaskFileMapper;
@@ -101,19 +109,27 @@ public class DataWrapper {
     }
 
 
-
-    public SubmitTaskWrapper doSubmitTaskWrapper(SubmitTask submitTask){
-        SubmitTaskWrapper submitTaskWrapper = new SubmitTaskWrapper();
-        BeanUtils.copyProperties(submitTask,submitTaskWrapper);
-        //开始添加[增强属性]
+    public SubmitTaskStudentViewWrapper doSubmitTaskStudentViewWrap(SubmitTask submitTask){
+        if(submitTask==null) return null;
+        SubmitTaskStudentViewWrapper submitTaskStudentViewWrapper = new SubmitTaskStudentViewWrapper();
+        BeanUtils.copyProperties(submitTask,submitTaskStudentViewWrapper);
         SubmitTaskFileExample submitTaskFileExample = new SubmitTaskFileExample();
         submitTaskFileExample.createCriteria().andTaskIdEqualTo(submitTask.getTaskId())
                 .andUserIdEqualTo(submitTask.getUserId());
-        submitTaskWrapper.setSubmitTaskFiles(submitTaskFileMapper.selectByExample(submitTaskFileExample));
-        //加入 Student 信息的属性
-        submitTaskWrapper.setStudent(userService.getStudentByUserId(submitTask.getUserId()));
-        return submitTaskWrapper;
+        submitTaskStudentViewWrapper.setSubmitTaskFiles(submitTaskFileMapper.selectByExample(submitTaskFileExample));
+        return submitTaskStudentViewWrapper;
     }
+
+    public SubmitTaskTeacherViewWrapper doSubmitTaskTeacherViewWrap(SubmitTask submitTask){
+        SubmitTaskTeacherViewWrapper submitTaskTeacherViewWrapper = new SubmitTaskTeacherViewWrapper();
+        BeanUtils.copyProperties(doSubmitTaskStudentViewWrap(submitTask),submitTaskTeacherViewWrapper);
+        //加入 Student 信息的属性
+        submitTaskTeacherViewWrapper.setStudent(doStudentSafeWrap(userService.getStudentByUserId(submitTask.getUserId())));
+        //加入辅助的Task属性 【这是相当大的败笔！！！！！！！！！！】 【这是相当大的败笔！！！！！！！！！！】
+        //submitTaskTeacherViewWrapper.setTask(taskService.getTaskById(submitTask.getTaskId()));
+        return submitTaskTeacherViewWrapper;
+    }
+
 
     public CourseWrapper doCourseWrapper(Course course, int userId){
         CourseWrapper courseWrapper = new CourseWrapper();
@@ -159,12 +175,33 @@ public class DataWrapper {
         return teacherSafeWrapper;
     }
 
+    public AttachmentResourcesWrapper doAttachmentResourcesWrap(AttachmentResources attachmentResources){
+        AttachmentResourcesWrapper attachmentResourcesWrapper = new AttachmentResourcesWrapper();
+        BeanUtils.copyProperties(attachmentResources,attachmentResourcesWrapper);
+        attachmentResourcesWrapper.setSize(attachmentResourcesService.getSize(attachmentResources.getId()));
+        return attachmentResourcesWrapper;
+    }
+
     public StudentSafeWrapper doStudentSafeWrap(User user){
         StudentSafeWrapper userSafeWrapper = new StudentSafeWrapper();
         BeanUtils.copyProperties(user,userSafeWrapper);
         String studentId = studentMapper.selectByPrimaryKey(user.getId()).getStudentId();
         userSafeWrapper.setStudentId(studentId);
         return userSafeWrapper;
+    }
+
+    public UnpaidTaskStudentWrapper doUnpaidTaskStudentWrap(int taskId,Student student){
+        UnpaidTaskStudentWrapper unpaidTaskStudentWrapper = new UnpaidTaskStudentWrapper();
+        BeanUtils.copyProperties(student,unpaidTaskStudentWrapper);//拷贝属性
+        //设置催交次数
+        unpaidTaskStudentWrapper.setExpediteCount(taskService.getExpediteCount(taskId,student.getId()));
+        //计算被打回次数
+        ReturnTask returnTask = recallTaskService.getReturnTask(taskId, student.getId());
+        if(returnTask!=null) {
+            unpaidTaskStudentWrapper.setReturnCount(returnTask.getCount());
+            unpaidTaskStudentWrapper.setReturnLastTime(returnTask.getLastTime());
+        }
+        return unpaidTaskStudentWrapper;
     }
 
     public StudentViewTaskWrapper doStudentViewTaskWrap(Task task,int userId){
@@ -174,6 +211,8 @@ public class DataWrapper {
         studentViewTaskWrapper.setCommentCount(taskCommentService.getTaskCommentCount(taskId));
         studentViewTaskWrapper.setSubmit(submitTaskService.isSubmitted(userId,taskId));
         studentViewTaskWrapper.setReleaseTaskFiles(taskService.getReleaseTaskFiles(taskId));
+        //计算被催交的次数
+        studentViewTaskWrapper.setExpediteCount(taskService.getExpediteCount(taskId,userId));
         return studentViewTaskWrapper;
     }
 
@@ -186,7 +225,7 @@ public class DataWrapper {
         //加入发布的文件
         teacherViewTaskWrapper.setReleaseTaskFiles(taskService.getReleaseTaskFiles(taskId));
 
-        long courseMemberCount = courseService.getCourseMemberCount(task.getCourseId());//计算总的班级人数
+        long courseMemberCount = courseService.getStudentCountInCourse(task.getCourseId());//计算总的班级人数
 
         SubmitTaskExample submitTaskExample = new SubmitTaskExample();
         submitTaskExample.createCriteria().andTaskIdEqualTo(taskId).andIsCorrectEqualTo(false);
@@ -232,5 +271,12 @@ public class DataWrapper {
         List<CommentWrapper> commentWrappers = bulletinService.getBulletinComments(bulletinId).stream().map(this::doCommentWrapper).collect(Collectors.toList());
         bulletinDetailWrapper.setCommentWrappers(commentWrappers);//设置评论的详细数据
         return bulletinDetailWrapper;
+    }
+
+    public TaskNoticeWrapper doTaskNoticeWrap(TaskNotice taskNotice){
+        TaskNoticeWrapper taskNoticeWrapper = new TaskNoticeWrapper();
+        BeanUtils.copyProperties(taskNotice,taskNoticeWrapper);
+        taskNoticeWrapper.setTask(taskService.getTaskById(taskNotice.getTaskId()));
+        return taskNoticeWrapper;
     }
 }

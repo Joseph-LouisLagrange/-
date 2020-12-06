@@ -23,7 +23,6 @@ public class TaskNotice extends Notice{
 
     private String type;
 
-
     public TaskNotice(Integer noticeId, Integer taskId, String type) {
         this.noticeId = noticeId;
         this.taskId = taskId;

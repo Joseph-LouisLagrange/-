@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //成绩
+    function ChenJiPiGaiCondition(isCorrent){
+        this.isAction=false;
+        this.doTest=function (value){
+            return WeiJiaoCondition(false)&&value.isCorrent===isCorrent;
+        }
+    }
+
+    //未交（单独出来）
+    function WeiJiaoCondition(isJiao){
+        this.isActive=false;
+        this.doTest=function (value){
+            return value.isJiao===isJiao;
+        }
+    }
+
+    function XiangSiDuCondition(xiangSiDuStart,xiangSiDuEnd){
+        this.isActive=false;
+        this.doTest=function (value){
+            return value.xiangSiDu>=xiangSiDuStart&&value.xiangSiDu<=xiangSiDuEnd;
+        }
+    }
+
+    function TiJiaoZhangTai(state){
+        this.isActive=false;
+        this.doTest=function (value){
+            return value.tiJiaoState===state;
+        }
+    }
+
+    function ZuoYeZiShu(countStart,countEnd){
+        this.isActive=false;
+        this.doTest=function (value){
+            return value.ziShu>=countStart&&value.ziShu<=countEnd;
+        }
+    }
+    //准备所有条件
+    var weiPi=new ChenJiPiGaiCondition(false);
+    var yiPi=new ChenJiPiGaiCondition(true);
+    var weiJiao=new WeiJiaoCondition(true);
+
+    //三个相似度
+    var xiangSiDu1=new XiangSiDuCondition(0,50);
+    var xiangSiDu2=new XiangSiDuCondition(50,70);
+    var xaingSiDu3=new XiangSiDuCondition(70,90);
+
+    //提交状态
+
+
+
+</script>
+<form>
+    成绩：不限 : <input type="checkbox" name="chenJi" value="buXian"> 已批 : <input type="checkbox" name="chenJi" value="">
+</form>
+</body>
+</html>
