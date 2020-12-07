@@ -6,7 +6,7 @@ mail:
     template: 验证码 {0} (${captcha.mail.expireTimeout}分钟内有效)。如非本人操作，请忽略本短信。
 captcha:
   SMS:
-    expireTimeout: 10
+    expireTimeout: 1
     timeUnit: MINUTES
   web:
     expireTimeout: 15

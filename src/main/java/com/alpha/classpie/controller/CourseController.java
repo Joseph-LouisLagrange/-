@@ -63,7 +63,7 @@ public class CourseController {
     @PreAuthorize("hasRole('老师')")
     @RequestMapping("/editCourse")
     public Course editCourse(@RequestBody Course course){
-        return courseService.editCourse(course,course.getId());
+        return dataWrapper.doCourseWrapper(courseService.editCourse(course,course.getId()),UserController.getUserId());
     }
 
     @PreAuthorize("hasRole('老师')")

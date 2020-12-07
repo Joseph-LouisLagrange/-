@@ -8,6 +8,7 @@ import com.alpha.classpie.service.inf.notice.SendNoticeService;
 import com.alpha.classpie.service.inf.TaskService;
 import com.alpha.classpie.service.inf.UserService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,7 +30,7 @@ public class SendNoticeServiceHelper {
     TaskService taskService;
 
     public void sendTaskNotice(SendNoticeService sendNoticeService,User toUser,Course course,User teacher,Task task){
-        if(toUser!=null&&toUser.getEmailNumber()!=null&&teacher!=null){
+        if(toUser!=null&& StringUtils.hasText(toUser.getEmailNumber()) &&teacher!=null){
             sendNoticeService.sendNotice(toUser.getEmailNumber(),course.getName(),teacher.getName(),task.getName());
         }
     }

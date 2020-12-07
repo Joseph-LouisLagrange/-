@@ -124,7 +124,7 @@ public class DataWrapper {
         SubmitTaskTeacherViewWrapper submitTaskTeacherViewWrapper = new SubmitTaskTeacherViewWrapper();
         BeanUtils.copyProperties(doSubmitTaskStudentViewWrap(submitTask),submitTaskTeacherViewWrapper);
         //加入 Student 信息的属性
-        submitTaskTeacherViewWrapper.setStudent(doStudentSafeWrap(userService.getStudentByUserId(submitTask.getUserId())));
+        submitTaskTeacherViewWrapper.setStudent(doStudentSafeWrap(userService.getUserById(submitTask.getUserId())));
         //加入辅助的Task属性 【这是相当大的败笔！！！！！！！！！！】 【这是相当大的败笔！！！！！！！！！！】
         //submitTaskTeacherViewWrapper.setTask(taskService.getTaskById(submitTask.getTaskId()));
         return submitTaskTeacherViewWrapper;
@@ -157,6 +157,8 @@ public class DataWrapper {
         return courseWrapper;
     }
 
+
+
     public UserSafeWrapper doUserSafeWrap(User user){
         UserSafeWrapper userSafeWrapper = new UserSafeWrapper();
         BeanUtils.copyProperties(user,userSafeWrapper);
@@ -185,8 +187,9 @@ public class DataWrapper {
     public StudentSafeWrapper doStudentSafeWrap(User user){
         StudentSafeWrapper userSafeWrapper = new StudentSafeWrapper();
         BeanUtils.copyProperties(user,userSafeWrapper);
-        String studentId = studentMapper.selectByPrimaryKey(user.getId()).getStudentId();
-        userSafeWrapper.setStudentId(studentId);
+        Student student = studentMapper.selectByPrimaryKey(user.getId());
+        if(student!=null)
+            userSafeWrapper.setStudentId(student.getStudentId());
         return userSafeWrapper;
     }
 

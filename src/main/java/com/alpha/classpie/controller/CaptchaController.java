@@ -152,7 +152,7 @@ public class CaptchaController {
     @RequestMapping("bindTelephone/sendCaptcha")
     public long sendBindTelephoneCaptcha(
             @RequestParam(name = "telephone") String telephone
-            ,@RequestParam(name = "webCaptchaResult",required = false) int webCaptchaResult) throws Exception {
+            ,@RequestParam(name = "webCaptchaResult",required = false) Integer webCaptchaResult) throws Exception {
 //            if(!bindUsernameWebRecognizedCaptchaService.checkCaptcha(String.valueOf(UserController.getUserId()),webCaptchaResult)){
 //                return -1;
 //            }else {
@@ -168,7 +168,7 @@ public class CaptchaController {
 
     @RequestMapping("bindEmail/sendCaptcha")
     public long bindEmailMathCaptcha(
-            @RequestParam(name = "webCaptchaResult",required = false) int webCaptchaResult
+            @RequestParam(name = "webCaptchaResult",required = false) Integer webCaptchaResult
             , @RequestParam(name = "emailAddress") String emailAddress) throws Exception {
 //        if(!bindUsernameWebRecognizedCaptchaService.checkCaptcha(String.valueOf(UserController.getUserId()),webCaptchaResult)){
 //            return -1;
