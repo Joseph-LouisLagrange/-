@@ -13,10 +13,7 @@ import javax.annotation.Resource;
 import java.io.PrintStream;
 import java.util.Date;
 
-/**
- * @author 杨能
- * @create 2020/11/25
- */
+
 @SpringBootTest
 public class CommentServiceTest {
 

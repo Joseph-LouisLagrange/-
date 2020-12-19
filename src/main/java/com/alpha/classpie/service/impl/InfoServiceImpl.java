@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/17
- */
+
 public class InfoServiceImpl implements InfoService {
 
     @Autowired

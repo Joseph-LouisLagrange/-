@@ -2,10 +2,7 @@ package com.alpha.classpie.util;
 
 import com.alpha.classpie.type.UserNameType;
 
-/**
- * @author 杨能
- * @create 2020/11/7
- */
+
 public class FormatRecognitionUtil {
     public static UserNameType identifyUserName(String username){
         if(username.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")){

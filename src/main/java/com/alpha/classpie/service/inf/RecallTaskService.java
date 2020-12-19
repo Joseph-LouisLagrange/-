@@ -6,11 +6,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/20
- * 打回已提交的作业的服务
- */
+
 @Service
 public interface RecallTaskService {
     public boolean returnTask(int actionUserId,int submittedTaskId,int userId) throws IOException;

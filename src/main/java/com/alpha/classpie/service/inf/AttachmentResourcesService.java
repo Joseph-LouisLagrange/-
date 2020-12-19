@@ -10,10 +10,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/26
- */
+
 @Service
 @Transactional
 public interface AttachmentResourcesService {

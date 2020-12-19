@@ -10,10 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- */
+
 @SpringBootTest
 public class RecallTaskServiceTest {
     @Autowired

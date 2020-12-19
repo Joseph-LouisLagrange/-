@@ -14,10 +14,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-/**
- * @author 杨能
- * @create 2020/11/9
- */
+
 @Component
 @MappedTypes(ChineseBool.class)
 public class ChineseBoolTypeHandler implements TypeHandler<ChineseBool> {

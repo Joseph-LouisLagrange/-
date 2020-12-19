@@ -21,10 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * @author 杨能
- * @create 2020/11/25
- */
+
 @SpringBootTest
 public class UserFileServiceTest {
     @Autowired

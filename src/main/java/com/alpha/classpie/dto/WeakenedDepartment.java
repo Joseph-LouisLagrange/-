@@ -5,10 +5,7 @@ import com.alpha.classpie.pojo.other.EducationLevel;
 import com.alpha.classpie.pojo.other.Major;
 import lombok.Data;
 
-/**
- * @author 杨能
- * @create 2020/11/5
- */
+
 @Data
 public class WeakenedDepartment  {
     protected Integer id;

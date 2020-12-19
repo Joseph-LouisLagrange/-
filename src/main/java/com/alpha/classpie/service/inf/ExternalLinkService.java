@@ -4,10 +4,7 @@ import com.alpha.classpie.pojo.ExternalLink;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/26
- */
+
 public interface ExternalLinkService {
     public ExternalLink addExternalLink(ExternalLink externalLink);
 

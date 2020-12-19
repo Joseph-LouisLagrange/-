@@ -26,12 +26,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
-/**
- * @author 杨能
- * @create 2020/11/15
- * 数据中定义的文件模型与操作系统文件系统对应操作的类
- * 缺点：对于并未实现文件系统级别的回滚
- */
+
 @Service("defaultFilePlanService")
 @Transactional
 public class FilePlanServiceImpl implements FilePlanService {

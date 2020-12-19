@@ -10,11 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/9
- * 包装器:加强属性方面
- */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor

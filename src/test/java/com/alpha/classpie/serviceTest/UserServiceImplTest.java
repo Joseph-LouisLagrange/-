@@ -12,10 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 
-/**
- * @author 杨能
- * @create 2020/11/5
- */
+
 @SpringBootTest
 public class UserServiceImplTest {
 

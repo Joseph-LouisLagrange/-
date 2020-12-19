@@ -6,11 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- *
- */
+
 @Service
 public interface TaskNoticeService extends NoticeService {
     public boolean addTaskNotice(int userId,int taskId,String type,int actionUserId);

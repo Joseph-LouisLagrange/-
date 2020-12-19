@@ -3,10 +3,7 @@ package com.alpha.classpie.dto.exception;
 import com.alpha.classpie.dto.ResultDtoAdapter;
 import org.springframework.stereotype.Component;
 
-/**
- * @author 杨能
- * @create 2020/10/15
- */
+
 @Component("defaultResultDtoAdapter")
 public class DefaultResultDtoAdapter implements ResultDtoAdapter<Object> {
 

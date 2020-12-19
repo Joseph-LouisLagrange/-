@@ -29,10 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/9
- */
+
 @Service("defaultCourseService")
 @Transactional
 public class CourseServiceImpl implements CourseService {

@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- */
+
 public class JsonUtil {
 
 

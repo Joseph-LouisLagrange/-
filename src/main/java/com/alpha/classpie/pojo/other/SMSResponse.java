@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @author 杨能
- * @create 2020/11/2
- */
+
 @Data
 @NoArgsConstructor
 public class SMSResponse {

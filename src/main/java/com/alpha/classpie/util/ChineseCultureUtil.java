@@ -4,10 +4,7 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/2
- */
+
 public class ChineseCultureUtil {
     public static Map<TimeUnit,String> timeUnitMap=new Hashtable<>();
     static {

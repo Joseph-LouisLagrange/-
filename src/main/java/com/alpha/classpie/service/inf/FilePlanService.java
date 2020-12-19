@@ -11,10 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/15
- */
+
 public interface FilePlanService {
     public FilePlan[] addMultipartFiles(MultipartFile[] multipartFile) throws IOException;
     public boolean deleteFilePlan(int fileId);

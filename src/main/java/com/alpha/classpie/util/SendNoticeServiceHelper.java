@@ -13,10 +13,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- */
+
 @Component
 public class SendNoticeServiceHelper {
 

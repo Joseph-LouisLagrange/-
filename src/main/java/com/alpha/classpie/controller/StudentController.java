@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-/**
- * @author 杨能
- * @create 2020/11/4
- */
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {

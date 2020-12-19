@@ -25,10 +25,7 @@ import javax.validation.constraints.Min;
 import java.awt.*;
 import java.io.IOException;
 
-/**
- * @author 杨能
- * @create 2020/11/2
- */
+
 @Service("defaultCaptchaService")
 public class CaptchaServiceImpl implements CaptchaService {
 

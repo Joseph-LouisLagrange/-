@@ -8,10 +8,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/29
- */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class SubmitTaskStudentViewWrapper extends SubmitTask {

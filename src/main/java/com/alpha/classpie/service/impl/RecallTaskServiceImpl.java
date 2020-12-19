@@ -19,10 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/20
- */
+
 @Service("defaultRecallTaskService")
 public class RecallTaskServiceImpl implements RecallTaskService {
 

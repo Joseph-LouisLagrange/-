@@ -17,10 +17,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/9
- */
+
 @SpringBootTest
 public class CourseServiceTest {
 

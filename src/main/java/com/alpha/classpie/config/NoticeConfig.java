@@ -9,10 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Resource;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- */
+
 @Configuration
 public class NoticeConfig {
 

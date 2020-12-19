@@ -14,11 +14,7 @@ import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/15
- * 计算工具
- */
+
 public class ComputeUtil {
     public static String encodeString(String fileName) throws Exception {
         BufferedInputStream bin = new BufferedInputStream(new FileInputStream(fileName));

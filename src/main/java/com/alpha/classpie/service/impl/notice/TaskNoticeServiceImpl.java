@@ -29,10 +29,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- */
+
 @Service("defaultTaskNoticeService")
 @Transactional
 public class TaskNoticeServiceImpl extends AbstractNoticeService implements TaskNoticeService {

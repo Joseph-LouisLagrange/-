@@ -13,10 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author 杨能
- * @create 2020/11/1
- */
+
 @Service
 public interface UserService{
     public User smsTeacherRegister(Teacher teacher, int verificationCode);

@@ -5,10 +5,7 @@ import com.alpha.classpie.pojo.task.TaskNotice;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/22
- */
+
 public interface NoticeService {
     public List<Notice> getAllNoReadNotice(int userId);
     public List<Notice> getAllNotice(int userId);

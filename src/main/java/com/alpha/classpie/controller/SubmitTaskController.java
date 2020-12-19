@@ -24,10 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/20
- */
+
 @RestController
 @RequestMapping("/submitTask")
 public class SubmitTaskController {

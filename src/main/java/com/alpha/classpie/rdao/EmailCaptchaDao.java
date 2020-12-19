@@ -7,10 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/8
- */
+
 @Validated
 @Repository("emailCaptchaDao")
 public class EmailCaptchaDao extends RedisCaptchaDao<Integer> {

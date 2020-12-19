@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * @author 杨能
- * @create 2020/11/8
- */
+
 @RestController
 @RequestMapping("/test")
 public class TestController {

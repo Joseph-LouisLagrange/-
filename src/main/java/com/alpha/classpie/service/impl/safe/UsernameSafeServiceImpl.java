@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-/**
- * @author 杨能
- * @create 2020/11/13
- */
+
 @Service("defaultUsernameSafeService")
 public class UsernameSafeServiceImpl implements UsernameSafeService {
     @Autowired

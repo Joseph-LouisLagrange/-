@@ -11,10 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author 杨能
- * @create 2020/11/4
- */
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Teacher extends User {

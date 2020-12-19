@@ -9,10 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.File;
 
-/**
- * @author 杨能
- * @create 2020/12/1
- */
+
 @SpringBootTest
 public class BigFileTest {
 

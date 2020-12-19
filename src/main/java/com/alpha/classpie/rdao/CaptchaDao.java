@@ -6,10 +6,7 @@ import javax.validation.constraints.NotNull;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/2
- */
+
 @Repository
 public interface CaptchaDao<T> {
     public long getExpireSeconds(@NotNull String sessionId,String captchaId);

@@ -2,7 +2,7 @@ HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
+!**/src/main#{course_order,jdbcType=INTEGER}*/build/
 !**/src/test/**/build/
 
 ### STS ###
@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+/bcz
+GraphicExampleSentencesMapper.xml
+WordPhoneticTranscriptionMapper.xml
+WordEnglishInterpretationMapper.xml
+WordDetailsMapper.xml
+TranslationMapper.xml

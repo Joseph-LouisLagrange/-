@@ -16,10 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/18
- */
+
 @Configuration
 
 public class CaptchaConfig {

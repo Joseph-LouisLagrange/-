@@ -12,10 +12,7 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/18
- */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class EmailRemoteCaptchaService extends AbstractCaptchaService<Integer,Integer> implements RemoteCaptchaService {

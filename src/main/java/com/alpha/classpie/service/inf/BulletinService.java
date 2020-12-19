@@ -6,11 +6,7 @@ import com.alpha.classpie.service.inf.comment.BulletinCommentService;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/24
- * 公告相关的服务
- */
+
 public interface BulletinService extends BulletinCommentService {
     public Bulletin releaseBulletin(Bulletin bulletin,int courseId,int userId);
 

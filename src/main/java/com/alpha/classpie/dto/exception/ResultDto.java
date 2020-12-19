@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-/**
- * @author 杨能
- * @create 2020/10/15
- */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

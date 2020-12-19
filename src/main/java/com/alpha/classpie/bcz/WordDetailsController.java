@@ -17,10 +17,7 @@ import java.io.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/12/2
- */
+
 @RestController
 public class WordDetailsController {
     String base="C:\\Users\\ASUS\\Desktop\\百词斩";

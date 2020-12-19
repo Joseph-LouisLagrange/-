@@ -16,10 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/2
- */
+
 @Data
 @Component
 public class AlibabaSMSUtil {

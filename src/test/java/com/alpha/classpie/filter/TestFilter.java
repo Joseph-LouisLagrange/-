@@ -3,10 +3,7 @@ package com.alpha.classpie.filter;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/29
- */
+
 public class TestFilter {
     public static void main(String[] args) {
         Filter filter = new Filter();

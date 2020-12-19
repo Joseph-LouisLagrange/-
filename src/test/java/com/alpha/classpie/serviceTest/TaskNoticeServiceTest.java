@@ -15,10 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- */
+
 @SpringBootTest
 public class TaskNoticeServiceTest {
 

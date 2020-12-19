@@ -21,10 +21,7 @@ import dto.json.gson.DefaultGsonAdapter;
 
 import javax.activation.MimeTypeParseException;
 
-/**
- * @author 杨能
- * @create 2020/9/18
- */
+
 public class ServerTest {
 
     public static void main(String[] args) throws MimeTypeParseException {

@@ -3,10 +3,7 @@ package com.alpha.classpie.filter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/29
- */
+
 public class Filter {
     List<Condition> conditionList=new ArrayList<>();
     public void addCondition(Condition condition){

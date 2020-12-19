@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/18
- */
+
 @Data
 @NoArgsConstructor
 public abstract class AbstractCaptchaService<K,T> implements CaptchaService<T> {

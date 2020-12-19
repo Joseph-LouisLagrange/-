@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/9
- */
+
 @Service
 public interface BaseService<T,E> {
     //万能的分页查询

@@ -8,10 +8,7 @@ import com.alpha.classpie.util.PageParam;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/9
- */
+
 public interface CourseService extends BaseService<Course, CourseExample> {
     public Course createCourse(Course course,int userId);
     public List<User> getTeachers(int courseId);

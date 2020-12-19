@@ -8,11 +8,7 @@ import javax.validation.constraints.Email;
 import java.text.MessageFormat;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/21
- * email的实现
- */
+
 @Data
 public class SendNoticeServiceImpl implements SendNoticeService {
     MailService mailService;

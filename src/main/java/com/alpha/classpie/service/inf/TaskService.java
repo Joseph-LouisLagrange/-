@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/14
- */
+
 @Service
 public interface TaskService extends BaseService<Task, TaskExample>{
     public Task releaseDoCheckDuplicateTask(Task task, MultipartFile[] multipartFiles, int userId) throws IOException;

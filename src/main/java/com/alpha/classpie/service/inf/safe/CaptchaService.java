@@ -13,10 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import java.io.IOException;
 
-/**
- * @author 杨能
- * @create 2020/11/2
- */
+
 @Validated
 @Service
 public interface CaptchaService {

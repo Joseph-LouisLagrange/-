@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-/**
- * @author 杨能
- * @create 2020/12/2
- */
+
 @Component
 public abstract class AbstractDataCache<T> implements DataCache<T> {
     @Autowired

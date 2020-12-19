@@ -17,10 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/26
- */
+
 @RestController
 @RequestMapping("/attachmentResources")
 public class AttachmentResourcesController {

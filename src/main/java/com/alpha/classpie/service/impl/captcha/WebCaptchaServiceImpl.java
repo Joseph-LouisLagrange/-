@@ -19,10 +19,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/18
- */
+
 
 @Data
 @EqualsAndHashCode(callSuper = true)

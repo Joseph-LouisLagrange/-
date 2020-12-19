@@ -22,10 +22,7 @@ import java.lang.reflect.Parameter;
 import java.security.Policy;
 import java.util.*;
 
-/**
- * @author 杨能
- * @create 2020/10/25
- */
+
 @Aspect
 @Component
 public class WebLogAdvise {

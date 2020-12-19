@@ -7,10 +7,7 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 import java.util.Set;
 
-/**
- * @author 杨能
- * @create 2020/11/5
- */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class EducationTree extends EducationLevel {

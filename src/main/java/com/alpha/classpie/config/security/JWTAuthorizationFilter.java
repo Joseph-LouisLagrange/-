@@ -1,9 +1,6 @@
 package com.alpha.classpie.config.security;
 
-/**
- * @author 杨能
- * @create 2020/11/11
- */
+
 
 import com.alpha.classpie.pojo.user.User;
 import com.alpha.classpie.service.inf.UserService;

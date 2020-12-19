@@ -2,10 +2,7 @@ package com.alpha.classpie.filter;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/29
- */
+
 public class OddNumberCondition implements Condition {
 
     boolean active=false;

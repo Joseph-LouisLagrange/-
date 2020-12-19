@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/16
- */
+
 @Service
 public interface SubmitTaskService {
     public SubmitTask submitTask(MultipartFile[] multipartFiles, int taskId, int userId) throws IOException;

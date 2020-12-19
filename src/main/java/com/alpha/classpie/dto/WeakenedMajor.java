@@ -3,10 +3,7 @@ package com.alpha.classpie.dto;
 import com.alpha.classpie.pojo.other.Department;
 import lombok.Data;
 
-/**
- * @author 杨能
- * @create 2020/11/5
- */
+
 @Data
 public class WeakenedMajor {
     protected Integer id;

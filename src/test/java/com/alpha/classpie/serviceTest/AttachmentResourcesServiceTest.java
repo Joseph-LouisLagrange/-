@@ -19,10 +19,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/26
- */
+
 @SpringBootTest
 public class AttachmentResourcesServiceTest {
     @Autowired

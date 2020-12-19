@@ -12,10 +12,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/26
- */
+
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {

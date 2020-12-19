@@ -13,11 +13,7 @@ import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.ZipEntry;
 
-/**
- * @author 杨能
- * @create 2020/11/23
- * 文件打包工具
- */
+
 @Component
 public class FilePackHelper {
 

@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Hashtable;
 import java.util.Map;
 
-/**
- * @author 杨能
- * @create 2020/10/15
- */
+
 public class ExceptionDtoFactory {
     public ExceptionDto unknown;
     //几乎全是在读

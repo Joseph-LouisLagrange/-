@@ -30,10 +30,7 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.logging.Logger;
 
-/**
- * @author 杨能
- * @create 2020/10/21
- */
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ClientText {
 

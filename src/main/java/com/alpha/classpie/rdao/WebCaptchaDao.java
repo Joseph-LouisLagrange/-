@@ -6,10 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.validation.constraints.NotNull;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/3
- */
+
 @Repository("webCaptchaDao")
 public class WebCaptchaDao extends RedisCaptchaDao<String> {
     @Value("${captcha.web.expireTimeout}")

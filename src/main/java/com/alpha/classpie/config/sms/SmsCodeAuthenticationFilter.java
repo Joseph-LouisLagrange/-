@@ -11,10 +11,7 @@ import org.springframework.util.Assert;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author 杨能
- * @create 2020/11/7
- */
+
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     // =====================================================================================

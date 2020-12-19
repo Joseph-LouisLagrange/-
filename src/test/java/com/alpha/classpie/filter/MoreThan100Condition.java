@@ -2,10 +2,7 @@ package com.alpha.classpie.filter;
 
 import com.alpha.classpie.pojo.comment.CommentReply;
 
-/**
- * @author 杨能
- * @create 2020/11/29
- */
+
 public class MoreThan100Condition implements Condition {
     boolean active=false;
     @Override

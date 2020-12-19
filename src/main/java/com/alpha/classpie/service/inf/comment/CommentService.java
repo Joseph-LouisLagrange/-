@@ -8,11 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/22
- * 定义 评论服务的接口
- */
+
 @Service
 public interface CommentService extends BaseService<Comment, CommentExample>  {
     public boolean deleteComment(int commentId);

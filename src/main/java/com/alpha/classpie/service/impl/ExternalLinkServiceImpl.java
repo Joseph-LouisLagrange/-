@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/26
- */
+
 @Service("defaultExternalLinkService")
 public class ExternalLinkServiceImpl implements ExternalLinkService {
 

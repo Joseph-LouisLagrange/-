@@ -19,10 +19,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/16
- */
+
 @SpringBootTest
 public class SubmitTaskServiceTest {
 

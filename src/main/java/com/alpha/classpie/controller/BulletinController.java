@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/24
- */
+
 @RestController
 @RequestMapping("/bulletin")
 public class BulletinController {

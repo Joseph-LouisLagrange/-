@@ -5,11 +5,7 @@ import com.alpha.classpie.pojo.comment.TaskComment;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/22
- * 作业评论服务
- */
+
 public interface TaskCommentService extends CommentService {
     public Comment addTaskComment(TaskComment taskComment,int userId);
     public List<TaskComment> getTaskComments(int taskId);

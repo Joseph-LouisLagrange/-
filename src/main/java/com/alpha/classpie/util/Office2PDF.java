@@ -17,10 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Objects;
 
-/**
- * @author 杨能
- * @create 2020/11/1
- */
+
 @Component
 public class Office2PDF {
 

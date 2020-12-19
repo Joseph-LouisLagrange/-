@@ -25,10 +25,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
 
-/**
- * @author 杨能
- * @create 2020/11/1
- */
+
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled =true , securedEnabled = true)
 @EnableWebSecurity(debug = true)

@@ -11,10 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author 杨能
- * @create 2020/11/2
- */
+
 @Repository
 public abstract class RedisCaptchaDao<T> implements CaptchaDao<T>{
 

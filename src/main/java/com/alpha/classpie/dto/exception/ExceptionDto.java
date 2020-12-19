@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Component;
 
-/**
- * @author 杨能
- * @create 2020/10/15
- */
+
 
 @Data
 @EqualsAndHashCode(callSuper=true)

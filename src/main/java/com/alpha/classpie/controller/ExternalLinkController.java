@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/26
- */
+
 @RestController
 @RequestMapping("/externalLink")
 public class ExternalLinkController {

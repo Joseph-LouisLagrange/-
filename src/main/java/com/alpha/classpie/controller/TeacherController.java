@@ -20,10 +20,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-/**
- * @author 杨能
- * @create 2020/11/8
- */
+
 @RestController
 @RequestMapping("/teacher")
 public class TeacherController {

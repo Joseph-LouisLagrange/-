@@ -7,10 +7,7 @@ import lombok.EqualsAndHashCode;
 import java.sql.Timestamp;
 import java.util.Date;
 
-/**
- * @author 杨能
- * @create 2020/11/28
- */
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UnpaidTaskStudentWrapper extends StudentSafeWrapper {

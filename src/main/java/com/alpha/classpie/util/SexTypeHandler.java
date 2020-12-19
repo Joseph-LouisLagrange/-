@@ -12,10 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-/**
- * @author 杨能
- * @create 2020/11/9
- */
+
 @Component
 @MappedTypes(Sex.class)
 public class SexTypeHandler implements TypeHandler<Sex> {

@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 
 
 
-/**
- * @author 杨能
- * @create 2020/11/1
- */
+
 @Component
 public class MathGenerator implements CodeGenerator , MathGeneratorAdapter {
 

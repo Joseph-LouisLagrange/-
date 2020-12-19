@@ -8,10 +8,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/23
- */
+
 @Data
 public class ParentEntryNodeImpl implements ParentEntryNode {
     String name=null;

@@ -23,10 +23,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
-/**
- * @author 杨能
- * @create 2020/11/4
- */
+
 @RestController
 @RequestMapping("/user")
 public class UserController {

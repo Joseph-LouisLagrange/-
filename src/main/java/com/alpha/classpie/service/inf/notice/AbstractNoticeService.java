@@ -10,11 +10,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/22
- * 做出一部分共有的实现
- */
+
 @Service
 public abstract class AbstractNoticeService implements NoticeService {
 

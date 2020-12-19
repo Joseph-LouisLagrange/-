@@ -16,10 +16,7 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 
-/**
- * @author 杨能
- * @create 2020/11/7
- */
+
 @Component("smsCodeAuthenticationProvider")
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 

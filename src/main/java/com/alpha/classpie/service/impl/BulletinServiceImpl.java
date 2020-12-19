@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/24
- */
+
 @Service("defaultBulletinService")
 public class BulletinServiceImpl extends DefaultCommentService implements BulletinService {
 

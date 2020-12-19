@@ -10,10 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.*;
 
-/**
- * @author 杨能
- * @create 2020/11/11
- */
+
 public class JwtTokenUtil {
     // Token请求头
     public static final String TOKEN_HEADER = "Authorization";

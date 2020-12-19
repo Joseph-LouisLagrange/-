@@ -19,10 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author 杨能
- * @create 2020/11/1
- */
+
 @RestController
 public class CaptchaController {
 

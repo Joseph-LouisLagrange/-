@@ -8,10 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/25
- */
+
 @Service
 @Transactional
 public interface UserFileService {

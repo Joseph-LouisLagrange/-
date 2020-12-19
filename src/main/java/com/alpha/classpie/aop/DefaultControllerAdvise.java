@@ -22,10 +22,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-/**
- * @author 杨能
- * @create 2020/10/15
- */
+
 @ControllerAdvice
 public class DefaultControllerAdvise implements ResponseBodyAdvice<Object> , RequestBodyAdvice {
 

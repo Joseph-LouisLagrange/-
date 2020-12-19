@@ -20,10 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * @author 杨能
- * @create 2020/11/23
- */
+
 @Service("defaultFileExportService")
 public class FileExportServiceImpl implements FileExportService {
 

@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/5
- */
+
 @Component
 public class UserWrapperUtil {
     @Autowired

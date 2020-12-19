@@ -9,10 +9,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author 杨能
- * @create 2020/11/1
- */
+
 @Service("defaultPermissionService")
 public class PermissionServiceImpl implements PermissionService {
     @Override

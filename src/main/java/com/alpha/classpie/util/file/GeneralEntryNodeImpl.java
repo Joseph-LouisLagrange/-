@@ -2,10 +2,7 @@ package com.alpha.classpie.util.file;
 
 import java.io.File;
 
-/**
- * @author 杨能
- * @create 2020/11/23
- */
+
 public class GeneralEntryNodeImpl implements GeneralEntryNode {
     File file=null;
     String name=null;

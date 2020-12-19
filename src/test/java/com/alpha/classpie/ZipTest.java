@@ -17,10 +17,7 @@ import java.io.IOException;
 import java.util.zip.Deflater;
 import java.util.zip.ZipEntry;
 
-/**
- * @author 杨能
- * @create 2020/11/23
- */
+
 @SpringBootTest
 public class ZipTest {
 

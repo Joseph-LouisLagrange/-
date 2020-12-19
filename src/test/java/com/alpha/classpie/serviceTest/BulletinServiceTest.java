@@ -19,10 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author 杨能
- * @create 2020/11/24
- */
+
 @SpringBootTest
 public class BulletinServiceTest {
 
